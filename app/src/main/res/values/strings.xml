@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">First project</string>
+    <string name="emailRegistration">Email</string>
+    <string name="passwordRegistration">Password</string>
+    <string name="passwordRegistrationConfirmation">Password</string>
+    <string name="firstName">Frist Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="birthday">DD/MM/YY</string>
 </resources>
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration_form"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.jihad.smartevents.RegistrationFormActivity">
+    <Button
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/save" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/firstName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/firstName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_marginTop="24dp"
+        android:hint="@string/emailRegistration"
+        android:id="@+id/editText3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_below="@+id/editText3"
+        android:layout_alignRight="@+id/editText3"
+        android:layout_alignEnd="@+id/editText3"
+        android:layout_marginTop="27dp"
+        android:hint="@string/birthday"
+        android:id="@+id/birthday" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/lastName"
+        android:ems="10"
+        android:layout_marginTop="22dp"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/firstName"
+        android:layout_alignLeft="@+id/firstName"
+        android:layout_alignStart="@+id/firstName" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/birthday"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radioGroup">
+        <RadioButton
+            android:text="Woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/woman"
+            android:layout_above="@+id/save"
+            android:layout_alignLeft="@+id/save"
+            android:layout_alignStart="@+id/save"
+            android:layout_marginBottom="41dp"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/man"
+            android:text="Man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/woman"
+            android:layout_alignLeft="@+id/woman"
+            android:layout_alignStart="@+id/woman"
+            android:layout_marginBottom="10dp"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+</RelativeLayout>
