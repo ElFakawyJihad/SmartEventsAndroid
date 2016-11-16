@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.R;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -34,15 +35,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String connectionState = null;
-        //On peut ajouter une connection à la base de donnée pour vérifier l'authentification
+               //On peut ajouter une connection à la base de donnée pour vérifier l'authentification
         Intent sndActivity = new Intent(MainActivity.this, SecondActivity.class);
-
+        //TODO A modifier en Utilisant la classe UserREST quand le serveur sera disponible
         if(email.getText().toString().equals(validEmail) &&  password.getText().toString().equals(validPassword)) {
-            connectionState = "Vous êtes connecté!";
+            connectionState = ConstantesActivity.CONNECTIONOK;
             sndActivity.putExtra(MainActivity.EMAIL, connectionState);
             startActivity(sndActivity);
         } else {
-            connectionState = "E-mail ou mot de passe incorrect!";
+            connectionState = ConstantesActivity.CONNECTIONKO;
         }
 
         Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();

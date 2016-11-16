@@ -1,3 +1,5 @@
+package com.example.jihad.smartevents.rest;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -73,7 +75,7 @@ public class RESTInterface {
 			return null;
 		}
 	}
-
+/*
 	public static void main(String[] args) {
 
 		Map<String, String> parameters = new HashMap<>();
@@ -83,5 +85,6 @@ public class RESTInterface {
 		System.out.println(post("http://localhost:8081/connection", parameters));
 
 	}
+	*/
 
 }
