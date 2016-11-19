@@ -14,7 +14,7 @@ Comme leurs noms l'indiquent elles permettent de développer une fonctionnalité
 
 ## Branches Release-SpecificName
 Ces branches prennent le relai sur les branches de Feature, pour comme leurs noms indiquent faire une livraison.
-A la fin du développement, ce sont elles et seulement elles qui seront fusionnées avec la branche Develop.
+A la fin du développement (Tests, Jenkins, ...), ce sont elles et seulement elles qui seront fusionnées avec la branche Develop.
 Et, c'est seulement après cette fusion que l'on peut fusionner les branches Develop et Master ensemble.
 
 ## Conclusion
