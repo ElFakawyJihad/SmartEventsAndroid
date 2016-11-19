@@ -13,7 +13,7 @@ import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 public class MainActivity extends Activity implements View.OnClickListener {
     public final static String EMAIL = "com.example.jose.intent.EMAIL";
     private final String validEmail = "jose97359@gmail.com";
-    private final String validPassword = "lol";
+    private final String validPassword = "lol"; //test
     EditText email = null;
     EditText password = null;
 
