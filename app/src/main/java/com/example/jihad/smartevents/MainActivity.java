@@ -1,17 +1,14 @@
 package com.example.jihad.smartevents;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.app.Activity;
 import android.widget.Toast;
 
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
-import com.example.jihad.smartevents.R;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     public final static String EMAIL = "com.example.jose.intent.EMAIL";
