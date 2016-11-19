@@ -5,7 +5,7 @@ package com.example.jihad.smartevents.Constantes;
  */
 
 public class ConstantesRest {
-    public  static final String EMAIL="email";
+    public static final String EMAIL="email";
     public static final String PASSWORD="password";
 
     //Constantes Connection------------------------------------

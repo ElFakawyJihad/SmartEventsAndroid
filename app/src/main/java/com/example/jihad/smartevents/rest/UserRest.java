@@ -1,6 +1,7 @@
 package com.example.jihad.smartevents.rest;
 
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
+import com.example.jihad.smartevents.REST.RESTInterface;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.example.jihad.smartevents.rest;
+package com.example.jihad.smartevents.REST;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
