@@ -19,4 +19,7 @@ Et, c'est seulement après cette fusion que l'on peut fusionner les branches Dev
 
 ## Conclusion
 Nous allons utiliser les branches pour les futurs développements.
+Tout le monde part de la branche Develop pour commencer et chacun crée ses branches Feature et Release pour une fonctionnalité.
+(PS: il faudra supprimer ces branches après que vous les ayez fusionnées à la branche Develop)
+Si vous connaissez un gestionnaire de branches, nécessitez à le présenter.
 
