@@ -1,5 +1,7 @@
 package com.example.jihad.smartevents.REST;
 
+import android.os.StrictMode;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -22,6 +24,9 @@ public class RESTInterface {
 	}
 
 	public static String sendRequest(String urlString, String method, Map<String, String> parameters){
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+
 		try {
 
 			URL url = new URL(urlString);

@@ -11,17 +11,15 @@ import android.widget.Toast;
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
 import com.example.jihad.smartevents.REST.RESTInterface;
-import com.example.jihad.smartevents.rest.UserRest;
 
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
-import android.os.StrictMode;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     EditText email = null;
     EditText password = null;
-    private UserRest rest = new UserRest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +40,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String emailParam = email.getText().toString();
         String passwordParam = password.getText().toString();
 
-        //TODO A modifier en Utilisant la classe UserREST quand le serveur sera disponible
         Map<String, String> parameters = new HashMap<String, String>();
         String userMail = "dureyantonin@gmail.com";
         String userPassword = "azerty01";
-        parameters.put(ConstantesRest.EMAIL, userMail);
-        parameters.put(ConstantesRest.PASSWORD, userPassword);
-
-        // Résout mes anciens problèmes :)
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
+        parameters.put(ConstantesRest.EMAIL, emailParam);
+        parameters.put(ConstantesRest.PASSWORD, passwordParam);
 
         String result = RESTInterface.post(ConstantesRest.CONNECTIONURL, parameters);
-        //result = "{message: 'OK'}";
+
         try {
             JSONObject jsonObject = new JSONObject(result);
             String message = jsonObject.getString("message");
@@ -65,7 +57,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 JSONObject data = jsonObject.getJSONObject("data");
 
                 connectionState = ConstantesActivity.CONNECTIONOK;
-                sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("first_name"));
+                sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
+                sndActivity.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
+                sndActivity.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
+
                 //On peut récupérer les autres données
                 startActivity(sndActivity);
             } else {

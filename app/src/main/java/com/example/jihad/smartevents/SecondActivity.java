@@ -17,11 +17,17 @@ public class SecondActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
-        Intent i = getIntent();
+        Intent intent = getIntent();
 
-        String email = i.getStringExtra(ConstantesActivity.EMAIL);
+        String email = intent.getStringExtra(ConstantesActivity.EMAIL);
+        String firstName = intent.getStringExtra(ConstantesActivity.FIRST_NAME);
+        String lastName = intent.getStringExtra(ConstantesActivity.LAST_NAME);
 
-        TextView text = (TextView) findViewById(R.id.email);
-        text.setText(email);
+        TextView emailText = (TextView) findViewById(R.id.email);
+        TextView firstNameText = (TextView) findViewById(R.id.first_name);
+        TextView lastNameText = (TextView) findViewById(R.id.last_name);
+        emailText.setText(email);
+        firstNameText.setText(firstName);
+        lastNameText.setText(lastName);
     }
 }
