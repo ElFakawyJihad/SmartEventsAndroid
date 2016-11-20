@@ -33,3 +33,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/android-support-4.0.jar')
 }
+

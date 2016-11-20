@@ -11,16 +11,16 @@ import android.widget.Toast;
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
 import com.example.jihad.smartevents.REST.RESTInterface;
+import com.example.jihad.smartevents.rest.UserRest;
 
+import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    public final static String EMAIL = "com.example.jose.intent.EMAIL";
-    private final String validEmail = "jose97359@gmail.com";
-    private final String validPassword = "lol"; //test
     EditText email = null;
     EditText password = null;
+    private UserRest rest = new UserRest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +37,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String connectionState = null;
-               //On peut ajouter une connection à la base de donnée pour vérifier l'authentification
         Intent sndActivity = new Intent(MainActivity.this, SecondActivity.class);
+        String emailParam = email.getText().toString();
+        String passwordParam = password.getText().toString();
+
         //TODO A modifier en Utilisant la classe UserREST quand le serveur sera disponible
         Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("email", "dureyantonin@gmail.com");
-        parameters.put("password", "azerty01");
+        String userMail = "dureyantonin@gmail.com";
+        String userPassword = "azerty01";
+        parameters.put(ConstantesRest.EMAIL, userMail);
+        parameters.put(ConstantesRest.PASSWORD, userPassword);
 
-        //String result = RESTInterface.post("https://smarteventiagl.herokuapp.com/connection", parameters);
-        String result = "Server not available.";
-        /*
-        if(email.getText().toString().equals(validEmail) &&  password.getText().toString().equals(validPassword)) {
-            connectionState = ConstantesActivity.CONNECTIONOK;
-            sndActivity.putExtra(MainActivity.EMAIL, connectionState);
-            startActivity(sndActivity);
-        } else {
-            connectionState = ConstantesActivity.CONNECTIONKO;
+        String result = RESTInterface.post(ConstantesRest.CONNECTIONURL, parameters);
+        try {
+            //result = "{message: 'OK'}";
+            JSONObject jsonObject = new JSONObject(result);
+            String message = jsonObject.getString("message");
+
+            if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
+                connectionState = ConstantesActivity.CONNECTIONOK;
+                sndActivity.putExtra(ConstantesActivity.EMAIL, connectionState);
+                //On peut récupérer les autres données
+                startActivity(sndActivity);
+            } else {
+                connectionState = ConstantesActivity.CONNECTIONKO;
+            }
+
+
+        } catch (Exception e) {
+            //Exception à gérer
         }
-        */
 
-
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-
-        //Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
     }
 }
