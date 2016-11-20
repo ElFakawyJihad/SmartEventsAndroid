@@ -1,3 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">First project</string>
+    <string name="eventCategory1">bar</string>
+    <string name="eventCategory2">restaurant</string>
+    <string name="eventCategory3">musée</string>
+    <string name="eventCategory4">sortie sportive</string>
+    <string name="eventCategory5">cinéma</string>
+    <string name="eventCategory6">concert</string>
+    <string name="eventCategory7">soirée</string>
+    <string name="eventCategory8">autre</string>
 </resources>
