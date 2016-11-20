@@ -49,12 +49,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         parameters.put(ConstantesRest.PASSWORD, userPassword);
 
         String result = RESTInterface.post(ConstantesRest.CONNECTIONURL, parameters);
+        //result = "{message: 'OK'}";
         try {
-            //result = "{message: 'OK'}";
             JSONObject jsonObject = new JSONObject(result);
-            String message = jsonObject.getString("message");
+            JSONObject message = jsonObject.getJSONObject("message");
 
-            if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
+            if(message.toString().equals(ConstantesRest.IDENTIFICATIONOK)) {
                 connectionState = ConstantesActivity.CONNECTIONOK;
                 sndActivity.putExtra(ConstantesActivity.EMAIL, connectionState);
                 //On peut récupérer les autres données

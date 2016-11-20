@@ -33,7 +33,7 @@ public class RESTInterface {
 			
 
 			String input = "{";
-			
+
 			List<String> keys = new ArrayList<>(parameters.keySet());
 			
 			for(int i=0;i<keys.size()-1;i++){
