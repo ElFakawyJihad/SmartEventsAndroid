@@ -9,11 +9,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
+import com.example.jihad.smartevents.Constantes.ConstantesRest;
+import com.example.jihad.smartevents.REST.RESTInterface;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    public final static String EMAIL = "com.example.jose.intent.EMAIL";
-    private final String validEmail = "jose97359@gmail.com";
-    private final String validPassword = "lol";
     EditText email = null;
     EditText password = null;
 
@@ -32,15 +36,40 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String connectionState = null;
-               //On peut ajouter une connection à la base de donnée pour vérifier l'authentification
         Intent sndActivity = new Intent(MainActivity.this, SecondActivity.class);
-        //TODO A modifier en Utilisant la classe UserREST quand le serveur sera disponible
-        if(email.getText().toString().equals(validEmail) &&  password.getText().toString().equals(validPassword)) {
-            connectionState = ConstantesActivity.CONNECTIONOK;
-            sndActivity.putExtra(MainActivity.EMAIL, connectionState);
-            startActivity(sndActivity);
-        } else {
-            connectionState = ConstantesActivity.CONNECTIONKO;
+        String emailParam = email.getText().toString();
+        String passwordParam = password.getText().toString();
+
+        Map<String, String> parameters = new HashMap<String, String>();
+        String userMail = "dureyantonin@gmail.com";
+        String userPassword = "azerty01";
+        parameters.put(ConstantesRest.EMAIL, emailParam);
+        parameters.put(ConstantesRest.PASSWORD, passwordParam);
+
+        String result = RESTInterface.post(ConstantesRest.CONNECTIONURL, parameters);
+
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            String message = jsonObject.getString("message");
+
+
+            if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
+                JSONObject data = jsonObject.getJSONObject("data");
+
+                connectionState = ConstantesActivity.CONNECTIONOK;
+                sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
+                sndActivity.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
+                sndActivity.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
+
+                //On peut récupérer les autres données
+                startActivity(sndActivity);
+            } else {
+                connectionState = ConstantesActivity.CONNECTIONKO;
+            }
+
+
+        } catch (Exception e) {
+            //Exception à gérer
         }
 
         Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
