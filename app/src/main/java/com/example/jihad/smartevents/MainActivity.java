@@ -16,6 +16,7 @@ import com.example.jihad.smartevents.rest.UserRest;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
+import android.os.StrictMode;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     EditText email = null;
@@ -48,15 +49,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
         parameters.put(ConstantesRest.EMAIL, userMail);
         parameters.put(ConstantesRest.PASSWORD, userPassword);
 
+        // Résout mes anciens problèmes :)
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+
         String result = RESTInterface.post(ConstantesRest.CONNECTIONURL, parameters);
         //result = "{message: 'OK'}";
         try {
             JSONObject jsonObject = new JSONObject(result);
-            JSONObject message = jsonObject.getJSONObject("message");
+            String message = jsonObject.getString("message");
 
-            if(message.toString().equals(ConstantesRest.IDENTIFICATIONOK)) {
+
+            if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
+                JSONObject data = jsonObject.getJSONObject("data");
+
                 connectionState = ConstantesActivity.CONNECTIONOK;
-                sndActivity.putExtra(ConstantesActivity.EMAIL, connectionState);
+                sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("first_name"));
                 //On peut récupérer les autres données
                 startActivity(sndActivity);
             } else {
