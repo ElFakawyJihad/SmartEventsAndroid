@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
-import com.example.jihad.smartevents.REST.RESTInterface;
+import com.example.jihad.smartevents.rest.UserRest;
+
 
 import org.json.JSONObject;
 
@@ -46,7 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         parameters.put(ConstantesRest.EMAIL, emailParam);
         parameters.put(ConstantesRest.PASSWORD, passwordParam);
 
-        String result = RESTInterface.post(ConstantesRest.CONNECTIONURL, parameters);
+        String result =new UserRest().post(ConstantesRest.CONNECTIONURL, parameters);
 
         try {
             JSONObject jsonObject = new JSONObject(result);
