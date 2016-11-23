@@ -32,5 +32,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/android-support-4.0.jar')
-    compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.17.0'
+    //compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.17.0'
 }
