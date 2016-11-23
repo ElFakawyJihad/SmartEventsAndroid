@@ -10,7 +10,11 @@ public class ConstantesRest {
 
     //Constantes Connection------------------------------------
     public static final String CONNECTIONURL    = "https://smarteventiagl.herokuapp.com/connection";
+    public static final String ADDNEWEVENTURL    = "https://smarteventiagl.herokuapp.com/addnewevent";
     public static final String IDENTIFICATIONOK = "OK";
+    public static final String CREATEEVENTOK = "OK";
     //--------------------------------------------------------------------------
+
+
 
 }
