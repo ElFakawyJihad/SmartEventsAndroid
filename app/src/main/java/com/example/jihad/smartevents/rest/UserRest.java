@@ -23,5 +23,13 @@ public class UserRest extends RestInterface {
         String result=post(ConstantesRest.CONNECTIONURL, parameters);
         return result;
     }
+    public String inscription(String userMail,String password){
+        Map<String, String> parameters = new HashMap<String, String>();
 
+        parameters.put(ConstantesRest.EMAIL, userMail);
+        parameters.put(ConstantesRest.PASSWORD,password);
+
+        String result=post(ConstantesRest.CONNECTIONURL, parameters);
+        return result;
+    }
 }

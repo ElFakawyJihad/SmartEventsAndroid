@@ -5,18 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.example.jihad.smartevents.Constantes.ConstantesActivity;
+import com.example.jihad.smartevents.Constantes.ConstantesRest;
+import com.example.jihad.smartevents.rest.UserRest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.jihad.smartevents.RESTInterface.get;
-import static com.example.jihad.smartevents.RESTInterface.post;
+
+
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    public final static String EMAIL = "com.example.jihad.MESSAGE";
 
 
     @Override
@@ -38,13 +41,10 @@ public class RegistrationActivity extends AppCompatActivity {
         if(password.equals(passwordConfirmation)){
             Intent intent = new Intent(this, RegistrationFormActivity.class);
 
-            parameters = new HashMap<>();
-            parameters.put("email",email);
-            parameters.put("password",password);
-
             try {
-                JSONObject reponse = new JSONObject((String) post("http://localhost:8081/connection", parameters));
-                if(reponse.getString("message").equals("OK")) {
+                String result=new UserRest().inscription(email,password);
+                JSONObject reponse = new JSONObject(result);
+                if(reponse.getString(ConstantesRest.GETMESSAGE).equals(ConstantesRest.INSCRIPTIONOK)) {
 
                     startActivity(intent);
                 }
