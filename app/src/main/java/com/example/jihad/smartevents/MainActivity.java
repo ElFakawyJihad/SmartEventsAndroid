@@ -30,9 +30,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         Button loginButton = (Button) findViewById(R.id.login);
-
         loginButton.setOnClickListener(this);
-    }
+
+}
+    
 
     @Override
     public void onClick(View view) {
@@ -48,6 +49,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         parameters.put(ConstantesRest.PASSWORD, passwordParam);
 
         String result =new UserRest().post(ConstantesRest.CONNECTIONURL, parameters);
+
 
         try {
             JSONObject jsonObject = new JSONObject(result);

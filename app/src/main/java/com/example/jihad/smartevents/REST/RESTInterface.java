@@ -1,4 +1,4 @@
-package com.example.jihad.smartevents.REST;
+package com.example.jihad.smartevents.rest;
 
 import android.os.StrictMode;
 
