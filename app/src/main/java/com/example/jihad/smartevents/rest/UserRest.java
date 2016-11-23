@@ -5,11 +5,13 @@ import com.example.jihad.smartevents.Constantes.ConstantesRest;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.jihad.smartevents.rest.RestInterface.post;
+
 /**
  * Created by Jihad on 15/11/2016.
  */
 
-public class UserRest extends com.example.jihad.smartevents.rest.RESTInterface {
+public class UserRest extends RestInterface {
 
 
     public String connection(String userMail, String password){
