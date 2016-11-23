@@ -42,14 +42,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String emailParam = email.getText().toString();
         String passwordParam = password.getText().toString();
 
-        Map<String, String> parameters = new HashMap<String, String>();
         String userMail = "dureyantonin@gmail.com";
         String userPassword = "azerty01";
-        parameters.put(ConstantesRest.EMAIL, emailParam);
-        parameters.put(ConstantesRest.PASSWORD, passwordParam);
 
-        String result =new UserRest().post(ConstantesRest.CONNECTIONURL, parameters);
-
+        String result =new UserRest().connection(userMail,userPassword);
 
         try {
             JSONObject jsonObject = new JSONObject(result);
