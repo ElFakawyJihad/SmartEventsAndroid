@@ -9,8 +9,7 @@ import java.util.Map;
  * Created by Jihad on 15/11/2016.
  */
 
-public class UserRest extends RestInterface {
-
+public class UserRest extends com.example.jihad.smartevents.rest.RESTInterface {
 
 
     public String connection(String userMail, String password){
