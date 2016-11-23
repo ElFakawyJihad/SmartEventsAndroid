@@ -1,5 +1,6 @@
 package com.example.jihad.smartevents;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +19,11 @@ import java.util.Map;
 
 
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends Activity {
 
 
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);

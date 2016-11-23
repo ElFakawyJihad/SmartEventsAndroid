@@ -1,5 +1,6 @@
 package com.example.jihad.smartevents;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.widget.RadioButton;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationFormActivity extends AppCompatActivity {
+public class RegistrationFormActivity extends Activity {
 
     int gender;// 0 = man 1 = woman
 
