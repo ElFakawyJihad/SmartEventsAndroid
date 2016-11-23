@@ -12,18 +12,14 @@ import java.util.Map;
 public class UserRest extends com.example.jihad.smartevents.rest.RESTInterface {
 
 
-    public boolean connection(String userMail, String password){
+    public String connection(String userMail, String password){
         Map<String, String> parameters = new HashMap<String, String>();
 
         parameters.put(ConstantesRest.EMAIL, userMail);
         parameters.put(ConstantesRest.PASSWORD,password);
 
         String result=post(ConstantesRest.CONNECTIONURL, parameters);
-
-        if (result.equals(ConstantesRest.IDENTIFICATIONOK)){
-            return true;
-        }
-        return false;
+        return result;
     }
 
 }
