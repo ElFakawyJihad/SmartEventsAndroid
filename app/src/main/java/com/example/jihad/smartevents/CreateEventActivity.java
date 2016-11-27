@@ -2,6 +2,8 @@ package com.example.jihad.smartevents;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,8 +16,9 @@ import com.example.jihad.smartevents.rest.UserRest;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.List;
+
 
 public class CreateEventActivity extends Activity {
 
@@ -25,7 +28,7 @@ public class CreateEventActivity extends Activity {
         setContentView(R.layout.activity_create_event);
     }
 
-    public void createEvent(View button){
+    public void createEvent(View view) throws IOException{
         String connectionState = null;
         Intent sndActivity = new Intent(CreateEventActivity.this, EventCreationInfoActivity.class);
 
@@ -47,7 +50,19 @@ public class CreateEventActivity extends Activity {
         final EditText eventLocalisation = (EditText) findViewById(R.id.eventLocalisation);
         String localisation = eventLocalisation.getText().toString();
 
-        String result = new UserRest().createNewEvent(title,eventCategory,description,date,capacity,localisation);
+        Geocoder gc = new Geocoder(this);
+        List<Address> list = gc.getFromLocationName(localisation,1);
+        Address add = list.get(0);
+
+        String locality = add.getLocality();
+        Toast.makeText(this,locality,Toast.LENGTH_LONG).show();
+
+        double lat = add.getLatitude();
+        double lng = add.getLongitude();
+
+        Toast.makeText(this,String.valueOf(lat)+"/"+String.valueOf(lng),Toast.LENGTH_LONG).show();
+
+        String result = new UserRest().createNewEvent(title,eventCategory,description,date,capacity,localisation,lat,lng);
 
         try {
             JSONObject jsonObject = new JSONObject(result);
@@ -64,8 +79,9 @@ public class CreateEventActivity extends Activity {
                 sndActivity.putExtra("date de l'event", data.getString("eventDate"));
                 sndActivity.putExtra("nombres de place", data.getString("eventCapacity"));
                 sndActivity.putExtra("lieu", data.getString("eventLocalisation"));
+                sndActivity.putExtra("lat", data.getString("lat"));
+                sndActivity.putExtra("lng",data.getString("long"));
 
-                //On peut récupérer les autres données
                 startActivity(sndActivity);
             } else {
                 connectionState = ConstantesActivity.CREATENEWEVENTKO;
