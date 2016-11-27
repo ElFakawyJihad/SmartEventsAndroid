@@ -13,7 +13,12 @@ public class ConstantesRest {
     public static final String ADDNEWEVENTURL    = "https://smarteventiagl.herokuapp.com/addnewevent";
     public static final String IDENTIFICATIONOK = "OK";
     public static final String CREATEEVENTOK = "OK";
-    //--------------------------------------------------------------------------
+
+    //Constantes Inscription-----------------------------------
+    public static final String INSCRIPTIONURL= "http://localhost:8081/connection";
+    public static final String INSCRIPTIONOK="OK";
+    public static final String GETMESSAGE="message";
+
 
 
 
