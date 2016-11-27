@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
-import com.example.jihad.smartevents.REST.RESTInterface;
+import com.example.jihad.smartevents.rest.UserRest;
 
 import org.json.JSONObject;
 
@@ -47,15 +47,7 @@ public class CreateEventActivity extends Activity {
         final EditText eventLocalisation = (EditText) findViewById(R.id.eventLocalisation);
         String localisation = eventLocalisation.getText().toString();
 
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("titre", title);
-        parameters.put("catégorie", eventCategory);
-        parameters.put("description", description);
-        parameters.put("date de l'event", date);
-        parameters.put("nombres de place", capacity);
-        parameters.put("lieu", localisation);
-
-        String result = RESTInterface.post(ConstantesRest.ADDNEWEVENTURL, parameters);
+        String result = new UserRest().createNewEvent(title,eventCategory,description,date,capacity,localisation);
 
         try {
             JSONObject jsonObject = new JSONObject(result);

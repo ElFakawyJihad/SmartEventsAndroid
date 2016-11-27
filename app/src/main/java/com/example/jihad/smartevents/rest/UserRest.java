@@ -32,4 +32,18 @@ public class UserRest extends RestInterface {
         String result=post(ConstantesRest.CONNECTIONURL, parameters);
         return result;
     }
+
+    public String createNewEvent(String title, String eventCategory, String description, String date, String capacity, String localisation){
+        Map<String, String> parameters = new HashMap<String, String>();
+
+        parameters.put("titre", title);
+        parameters.put("catégorie", eventCategory);
+        parameters.put("description", description);
+        parameters.put("date de l'event", date);
+        parameters.put("nombres de place", capacity);
+        parameters.put("lieu", localisation);
+
+        String result = new UserRest().post(ConstantesRest.ADDNEWEVENTURL, parameters);
+        return result;
+    }
 }
