@@ -7,7 +7,6 @@
     <string name="firstName">Frist Name</string>
     <string name="lastName">Last Name</string>
     <string name="birthday">DD/MM/YY</string>
-    <string name="app_name">First project</string>
     <string name="eventCategory1">bar</string>
     <string name="eventCategory2">restaurant</string>
     <string name="eventCategory3">musée</string>
