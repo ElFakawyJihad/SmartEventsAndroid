@@ -19,6 +19,16 @@ public class ConstantesRest {
     public static final String INSCRIPTIONOK="OK";
     public static final String GETMESSAGE="message";
 
+    //Constantes Création d'un évenement------------------------
+    public static final String eventTitle="titre";
+    public static final String eventCategory="catégorie";
+    public static final String eventDescription="description";
+    public static final String eventDate="date de l'event";
+    public static final String eventCapacity="nombres de place";
+    public static final String eventLocalisation="lieu";
+    public static final String localisationLatitude="latitude";
+    public static final String localisationLongitude="longitude";
+
 
 
 
