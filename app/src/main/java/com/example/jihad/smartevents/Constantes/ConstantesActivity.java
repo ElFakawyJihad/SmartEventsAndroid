@@ -10,4 +10,7 @@ public class ConstantesActivity {
     public static final String LAST_NAME = "com.example.jose.intent.LAST_NAME";
     public static final String CONNECTIONOK = "Vous êtes connecté!";
     public static final String CONNECTIONKO = "E-mail ou mot de passe incorrect!";
+    public static final String CREATENEWEVENTOK = "L'évenement a été bien crée!";
+    public static final String CREATENEWEVENTKO = "Erreur lors de la création de l'événement!";
+
 }

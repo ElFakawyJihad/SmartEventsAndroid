@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="eventCategorylist">
+        <item>@string/eventCategory1</item>
+        <item>@string/eventCategory2</item>
+        <item>@string/eventCategory3</item>
+        <item>@string/eventCategory4</item>
+        <item>@string/eventCategory5</item>
+        <item>@string/eventCategory6</item>
+        <item>@string/eventCategory7</item>
+        <item>@string/eventCategory8</item>
+    </string-array>
+</resources>
