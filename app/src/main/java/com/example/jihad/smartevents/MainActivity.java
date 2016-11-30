@@ -38,14 +38,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String connectionState = null;
-        Intent sndActivity = new Intent(MainActivity.this, SecondActivity.class);
+        Intent sndActivity = new Intent(MainActivity.this, MapsActivity.class);
         String userMail = email.getText().toString();
         String userPassword = password.getText().toString();
 
         //String userMail = "dureyantonin@gmail.com";
         //String userPassword = "azerty01";
 
-        String result =new UserRest().connection(userMail,userPassword);
+        String result = new UserRest().connection(userMail,userPassword);
 
         try {
             JSONObject jsonObject = new JSONObject(result);
