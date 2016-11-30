@@ -39,11 +39,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         String connectionState = null;
         Intent sndActivity = new Intent(MainActivity.this, SecondActivity.class);
-        String emailParam = email.getText().toString();
-        String passwordParam = password.getText().toString();
+        String userMail = email.getText().toString();
+        String userPassword = password.getText().toString();
 
-        String userMail = "dureyantonin@gmail.com";
-        String userPassword = "azerty01";
+        //String userMail = "dureyantonin@gmail.com";
+        //String userPassword = "azerty01";
 
         String result =new UserRest().connection(userMail,userPassword);
 
