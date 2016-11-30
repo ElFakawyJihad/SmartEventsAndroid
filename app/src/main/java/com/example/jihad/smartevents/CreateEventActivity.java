@@ -54,13 +54,13 @@ public class CreateEventActivity extends Activity {
         List<Address> list = gc.getFromLocationName(localisation,1);
         Address add = list.get(0);
 
-        String locality = add.getLocality();
-        Toast.makeText(this,locality,Toast.LENGTH_LONG).show();
+        //String locality = add.getLocality();
+        //Toast.makeText(this,locality,Toast.LENGTH_LONG).show();
 
         double lat = add.getLatitude();
         double lng = add.getLongitude();
 
-        Toast.makeText(this,String.valueOf(lat)+"/"+String.valueOf(lng),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,String.valueOf(lat)+"/"+String.valueOf(lng),Toast.LENGTH_LONG).show();
 
         String result = new UserRest().createNewEvent(title,eventCategory,description,date,capacity,localisation,lat,lng);
 
@@ -73,14 +73,14 @@ public class CreateEventActivity extends Activity {
                 JSONObject data = jsonObject.getJSONObject("data");
 
                 connectionState = ConstantesActivity.CREATENEWEVENTOK;
-                sndActivity.putExtra("titre", data.getString("eventTitle"));
-                sndActivity.putExtra("catégorie", data.getString("eventCategory"));
-                sndActivity.putExtra("description", data.getString("eventDescription"));
-                sndActivity.putExtra("date de l'event", data.getString("eventDate"));
-                sndActivity.putExtra("nombres de place", data.getString("eventCapacity"));
-                sndActivity.putExtra("lieu", data.getString("eventLocalisation"));
-                sndActivity.putExtra("lat", data.getString("lat"));
-                sndActivity.putExtra("lng",data.getString("long"));
+                sndActivity.putExtra(ConstantesRest.eventTitle, data.getString("eventTitle"));
+                sndActivity.putExtra(ConstantesRest.eventCategory, data.getString("eventCategory"));
+                sndActivity.putExtra(ConstantesRest.eventDescription, data.getString("eventDescription"));
+                sndActivity.putExtra(ConstantesRest.eventDate, data.getString("eventDate"));
+                sndActivity.putExtra(ConstantesRest.eventCapacity, data.getString("eventCapacity"));
+                sndActivity.putExtra(ConstantesRest.eventLocalisation, data.getString("eventLocalisation"));
+                sndActivity.putExtra(ConstantesRest.localisationLatitude, data.getString("localisationLat"));
+                sndActivity.putExtra(ConstantesRest.localisationLongitude,data.getString("localisationLong"));
 
                 startActivity(sndActivity);
             } else {
@@ -89,7 +89,7 @@ public class CreateEventActivity extends Activity {
 
 
         } catch (Exception e) {
-            //Exception à gérer
+            Toast.makeText(this,"Erreur lors de la création de l'évenement. Veuillez corriger les informations soumises dans le formulaire de création.",Toast.LENGTH_LONG).show();
         }
 
         Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();

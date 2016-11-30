@@ -14,41 +14,22 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="Titre de l'évenement"
+        android:hint="Titre de l'évenement"
         android:ems="10"
         android:id="@+id/eventTitle"
         android:layout_marginTop="12dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Spinner
-        android:id="@+id/SpinnerEventCategory"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:entries="@array/eventCategorylist">
-    </Spinner>
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:text="Catégorie de l'évènement "
-        android:ems="10"
-        android:layout_marginTop="55dp"
-        android:id="@+id/eventCategoy"
-        android:layout_alignTop="@+id/eventTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:layout_width="470px"
         android:layout_height="180px"
         android:inputType="text"
-        android:text="Description de l'évènement"
+        android:hint="Description de l'évènement"
         android:ems="10"
         android:layout_marginTop="12dp"
         android:id="@+id/eventDescription"
-        android:layout_below="@+id/eventCategoy"
+        android:layout_below="@+id/eventTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -58,8 +39,8 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/eventDate"
-        android:text="Date de l'évènement"
-        android:layout_below="@+id/eventDescription"
+        android:hint="Date de l'évènement"
+        android:layout_below="@+id/SpinnerEventCategory"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="49dp" />
@@ -70,7 +51,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/eventCapacity"
-        android:text="Nombres de places"
+        android:hint="Nombres de places"
         android:layout_below="@+id/eventDate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -82,11 +63,11 @@
         android:inputType="textPostalAddress"
         android:ems="10"
         android:id="@+id/eventLocalisation"
-        android:text="Lieu"
         android:layout_below="@+id/eventCapacity"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp" />
+        android:layout_marginTop="22dp"
+        android:hint="Lieu" />
 
     <Button
         android:text="Créer l'évenement"
@@ -98,6 +79,17 @@
         android:layout_toRightOf="@+id/eventDescription"
         android:layout_toEndOf="@+id/eventDescription"
         android:layout_marginTop="44dp" />
+
+    <Spinner
+        android:id="@+id/SpinnerEventCategory"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:entries="@array/eventCategorylist"
+        android:layout_below="@+id/eventDescription"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp">
+    </Spinner>
 
 
 </RelativeLayout>
