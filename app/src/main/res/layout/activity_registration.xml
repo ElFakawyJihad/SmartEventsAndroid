@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/emailRegistration"
-            android:hint="@string/emailRegistration" />
+            android:id="@+id/emailRegistrationConfirmation"
+            android:hint="@string/emailRegistrationConfirmation" />
 
         <EditText
             android:layout_width="match_parent"
@@ -42,10 +42,9 @@
             android:hint="@string/passwordRegistrationConfirmation" />
 
         <Button
-            android:text="Sing up"
+            android:text="S'inscrire"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/singUp"
-            android:onClick="saveMail"/>
+            android:id="@+id/signUp"/>
     </LinearLayout>
 </RelativeLayout>

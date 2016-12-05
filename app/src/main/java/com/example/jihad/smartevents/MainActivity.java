@@ -12,11 +12,7 @@ import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
 import com.example.jihad.smartevents.rest.UserRest;
 
-
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     EditText email = null;
@@ -32,45 +28,59 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Button loginButton = (Button) findViewById(R.id.login);
         loginButton.setOnClickListener(this);
 
+        Button registerButton = (Button) findViewById(R.id.subscribeButton);
+        registerButton.setOnClickListener(this);
+
 }
     
 
     @Override
     public void onClick(View view) {
-        String connectionState = null;
-        Intent sndActivity = new Intent(MainActivity.this, MapsActivity.class);
-        String userMail = email.getText().toString();
-        String userPassword = password.getText().toString();
+        switch (view.getId()) {
+            case R.id.login:
+                String connectionState = null;
+                Intent sndActivity = new Intent(MainActivity.this, MapsActivity.class);
+                String userMail = email.getText().toString();
+                String userPassword = password.getText().toString();
 
-        //String userMail = "dureyantonin@gmail.com";
-        //String userPassword = "azerty01";
+                //String userMail = "dureyantonin@gmail.com";
+                //String userPassword = "azerty01";
 
-        String result = new UserRest().connection(userMail,userPassword);
+                String result = new UserRest().connection(userMail,userPassword);
 
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            String message = jsonObject.getString("message");
-
-
-            if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
-                JSONObject data = jsonObject.getJSONObject("data");
-
-                connectionState = ConstantesActivity.CONNECTIONOK;
-                sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
-                sndActivity.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
-                sndActivity.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
-
-                //On peut récupérer les autres données
-                startActivity(sndActivity);
-            } else {
-                connectionState = ConstantesActivity.CONNECTIONKO;
-            }
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String message = jsonObject.getString("message");
 
 
-        } catch (Exception e) {
-            //Exception à gérer
+                    if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
+                        JSONObject data = jsonObject.getJSONObject("data");
+
+                        connectionState = ConstantesActivity.CONNECTIONOK;
+                        sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
+                        sndActivity.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
+                        sndActivity.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
+
+                        //On peut récupérer les autres données
+                        startActivity(sndActivity);
+                    } else {
+                        connectionState = ConstantesActivity.CONNECTIONKO;
+                    }
+
+
+                } catch (Exception e) {
+                    //Exception à gérer
+                }
+
+                Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.subscribeButton:
+                Intent registrationFormActivity = new Intent(MainActivity.this, RegistrationFormActivity.class);
+                startActivity(registrationFormActivity);
+                break;
+            default:
+                break;
         }
 
-        Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
     }
 }
