@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">SmartEvents</string>
-    <string name="emailRegistration">Email</string>
-    <string name="passwordRegistration">Password</string>
-    <string name="passwordRegistrationConfirmation">Password</string>
-    <string name="firstName">Frist Name</string>
-    <string name="lastName">Last Name</string>
-    <string name="birthday">DD/MM/YY</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- Inscription -->
+    <string name="emailRegistration">Email</string>
+    <string name="emailRegistrationConfirmation">Confirmation email</string>
+    <string name="passwordRegistration">Mot de passe</string>
+    <string name="passwordRegistrationConfirmation">Confirmation mot de passe</string>
+    <string name="firstNameRegistration">Prénom</string>
+    <string name="lastNameRegistration">Nom</string>
+    <string name="birthdayRegistration">Date de naissance</string>
+    <string name="nextStepRegistration">Étape suivante</string>
+
+    <!-- Création d'événement -->
     <string name="eventCategory1">Bar</string>
     <string name="eventCategory2">Restaurant</string>
     <string name="eventCategory3">Musée</string>
@@ -16,6 +22,8 @@
     <string name="eventCategory6">Concert</string>
     <string name="eventCategory7">Soirée</string>
     <string name="eventCategory8">Autre</string>
+
+
     <string name="title_activity_settings">Settings</string>
     <!-- Strings related to Settings -->
     <!-- Example General settings -->
