@@ -177,6 +177,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
         LinearLayout ll = (LinearLayout) findViewById(R.id.showEventDetails);
 
+        //Vérifie s'il s'agit du marqueur de l'utilisateur
         if(!marker.equals(this.myMarker)) {
             TextView text = (TextView) findViewById(R.id.eventTitle);
             ll.setVisibility(View.VISIBLE);
