@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jihad.smartevents.RegistrationFormActivity">
+    tools:context="com.example.jihad.smartevents.RegistrationFormActivity"
+    android:background="@drawable/darkbackground">
     <Button
         android:text="@string/nextStepRegistration"
         android:layout_width="wrap_content"
@@ -19,17 +20,19 @@
         android:id="@+id/nextStepRegistration" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:hint="@string/firstNameRegistration"
-        android:id="@+id/firstNameRegistration" />
+        android:id="@+id/firstNameRegistration"
+        android:textColorHint="@android:color/background_light"
+        android:textColor="@android:color/background_light" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -38,10 +41,12 @@
         android:layout_alignStart="@+id/lastNameRegistration"
         android:layout_marginTop="24dp"
         android:hint="@string/emailRegistration"
-        android:id="@+id/emailRegistration" />
+        android:id="@+id/emailRegistration"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
@@ -50,10 +55,12 @@
         android:layout_alignEnd="@+id/emailRegistration"
         android:layout_marginTop="27dp"
         android:hint="@string/birthdayRegistration"
-        android:id="@+id/birthdayRegistration" />
+        android:id="@+id/birthdayRegistration"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="@string/lastNameRegistration"
@@ -62,32 +69,43 @@
         android:id="@+id/lastNameRegistration"
         android:layout_below="@+id/firstNameRegistration"
         android:layout_alignLeft="@+id/firstNameRegistration"
-        android:layout_alignStart="@+id/firstNameRegistration" />
+        android:layout_alignStart="@+id/firstNameRegistration"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/birthdayRegistration"
         android:layout_centerHorizontal="true"
-        android:id="@+id/radioGroup">
-        <RadioButton
-            android:text="Woman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/womanRegistration"
-            android:layout_above="@+id/nextStepRegistration"
-            android:layout_alignLeft="@+id/nextStepRegistration"
-            android:layout_alignStart="@+id/nextStepRegistration"
-            android:layout_marginBottom="41dp"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/manRegistration"
-            android:text="Man"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/womanRegistration"
-            android:layout_alignLeft="@+id/womanRegistration"
-            android:layout_alignStart="@+id/womanRegistration"
-            android:layout_marginBottom="10dp"
-            android:onClick="onRadioButtonClicked"/>
+        android:id="@+id/radioGroup"
+        android:textColor="@android:color/background_light">
+
     </RadioGroup>
+
+    <RadioButton
+        android:text="Woman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/womanRegistration"
+        android:onClick="onRadioButtonClicked"
+        android:layout_alignBaseline="@+id/manRegistration"
+        android:layout_alignBottom="@+id/manRegistration"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/background_light"
+        android:buttonTint="@android:color/background_light"/>
+
+    <RadioButton android:id="@+id/manRegistration"
+        android:text="Man"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onRadioButtonClicked"
+        android:layout_marginTop="37dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_toLeftOf="@+id/nextStepRegistration"
+        android:layout_toStartOf="@+id/nextStepRegistration"
+        android:textColor="@android:color/background_light"
+        android:buttonTint="@android:color/background_light"/>
 </RelativeLayout>
