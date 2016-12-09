@@ -26,12 +26,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
     private Marker myMarker;
+    private Marker marker;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+    private HashMap<String, JSONObject> markerEventRelations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String firstName = intent.getStringExtra(ConstantesActivity.FIRST_NAME);
         TextView firstNameText = (TextView) findViewById(R.id.userName);
         firstNameText.setText(firstName);
+
+        this.markerEventRelations = new HashMap<String, JSONObject>();
         
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -83,28 +91,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Nettoyer la Map
         mMap.clear();
         // Recuperer la position actuel
-        LatLng latLong= new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        LatLng latLong = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
         //Preparer le marqueur de position
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLong);
-        markerOptions.title("Moi");
+        markerOptions.position(latLong); Toast.makeText(this, mLastLocation.getLatitude()+" "+mLastLocation.getLongitude(), Toast.LENGTH_LONG).show();
+        markerOptions.title("Moi "+mLastLocation.getLatitude()+" "+mLastLocation.getLongitude());
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
         myMarker = mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 12));
 
-        LatLng event1 = new LatLng(-34.01, 151.03);
-        LatLng event2 = new LatLng(-34.001, 151.025);
+        try {
+            //LatLng event1 = new LatLng(50.608770, 3.0643230);
+            LatLng event2 = new LatLng(-34.001, 151.025);
 
-        mMap.addMarker(new MarkerOptions()
-                .position(event1)
-                .title("Tournoi de Volley-ball (6 places restantes)")
-                .snippet("Le lieu de rencontre de tous les émotions")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.addMarker(new MarkerOptions()
-                .position(event2)
-                .title("Tournoi de Badminton (42 places restantes)")
-                .snippet("Le lieu de rencontre de tous les émotions")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            String eventJsonMock1 = "{" +
+                    "\"id\" : \"1\", " +
+                    "\"title\" : \"Tournoi de Volley-ball\"," +
+                    "\"latitude\" : \"50.63\", " +
+                    "\"longitude\" : \"3.064\", " +
+                    "\"description\" : \"Le tournoi de l'année à ne pas rater\", " +
+                    "\"category\" : \"Sport\", " +
+                    "\"place\" : \"3\" " +
+                    "}";
+            JSONObject event1 = new JSONObject(eventJsonMock1);
+
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(event1.getString("latitude")), Double.parseDouble(event1.getString("longitude"))))
+                    .title(event1.getString("title") + "(" + event1.getString("place") + " place(s) restante(s))")
+                    .snippet(event1.getString("description"))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            this.markerEventRelations.put(marker.getId(), event1);
+
+
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(event2)
+                    .title("Tournoi de Badminton (42 places restantes)")
+                    .snippet("Le lieu de rencontre de tous les émotions")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            this.markerEventRelations.put(marker.getId(), event1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Toast.makeText(this, "Test on connected", Toast.LENGTH_LONG).show();
     }
@@ -154,20 +182,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
 
         this.mGoogleApiClient.connect();
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12));
-
-        // Add a marker in Sydney and move the camera
-        /*
-        myMarker = mMap.addMarker(new MarkerOptions().position(sydney)
-                .position(sydney)
-                .title("Me")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        */
-
-
-
-
 
         //Toast.makeText(this, "Pfff", Toast.LENGTH_LONG).show();
 
@@ -179,10 +193,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Vérifie s'il s'agit du marqueur de l'utilisateur
         if(!marker.equals(this.myMarker)) {
-            TextView text = (TextView) findViewById(R.id.eventTitle);
-            ll.setVisibility(View.VISIBLE);
+            TextView title = (TextView) findViewById(R.id.eventTitle);
+            TextView category = (TextView) findViewById(R.id.eventCategory);
+            TextView description = (TextView) findViewById(R.id.eventDescription);
 
-            text.setText(marker.getTitle());
+
+            JSONObject event = this.markerEventRelations.get(marker.getId());
+
+            try {
+                title.setText(event.getString("title"));
+                category.setText(event.getString("category"));
+                description.setText(event.getString("description"));
+
+                ll.setVisibility(View.VISIBLE);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
         } else {
             ll.setVisibility(View.GONE);
         }
