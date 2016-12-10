@@ -44,9 +44,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
 
-        Intent intent = getIntent();
+        //Buttons
+        Button addEventButton = (Button) findViewById(R.id.addEventButton);
+        addEventButton.setOnClickListener(this);
+
+        Button joinEventButton = (Button) findViewById(R.id.joinEvent);
+        joinEventButton.setOnClickListener(this);
 
         //User information
+        Intent intent = getIntent();
         String firstName = intent.getStringExtra(ConstantesActivity.FIRST_NAME);
         TextView firstNameText = (TextView) findViewById(R.id.userName);
         firstNameText.setText(firstName);
@@ -60,8 +66,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapFragment.getMapAsync(this);
 
-        Button addEventButtonButton = (Button) findViewById(R.id.addEventButton);
-        addEventButtonButton.setOnClickListener(this);
 
         if(mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -134,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
-        Toast.makeText(this, "Test on connected", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Test on connected", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -222,12 +226,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onClick(View view) {
 
-        Intent sndActivity = new Intent(MapsActivity.this, CreateEventActivity.class);
-        startActivity(sndActivity);
-
-
-
-        Toast.makeText(this, "ajouter event", Toast.LENGTH_LONG).show();
+        switch (view.getId()) {
+            case R.id.addEventButton:
+                Intent createEventIntent = new Intent(MapsActivity.this, CreateEventActivity.class);
+                startActivity(createEventIntent);
+                break;
+            case R.id.joinEvent:
+                Intent joinEventConfirmationIntent = new Intent(MapsActivity.this, JoinEventConfirmationActivity.class);
+                startActivity(joinEventConfirmationIntent);
+                break;
+            default:
+                break;
+        }
     }
 
 }
