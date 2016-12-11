@@ -87,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            Toast.makeText(this, "GPS est désactivée.", Toast.LENGTH_LONG).show();
             return;
         }
 

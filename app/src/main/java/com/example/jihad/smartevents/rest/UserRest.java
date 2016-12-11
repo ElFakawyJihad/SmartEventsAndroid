@@ -28,7 +28,8 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.EMAIL, userMail);
         parameters.put(ConstantesRest.PASSWORD, password);
 
-        String result = post(ConstantesRest.CONNECTIONURL, parameters);
+
+        String result = RestInterface.post(ConstantesRest.CONNECTIONURL, parameters);
         return result;
     }
 
