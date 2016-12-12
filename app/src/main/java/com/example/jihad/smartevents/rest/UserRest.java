@@ -18,7 +18,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.PASSWORD, password);
         //parameters.put(ConstantesRest.F)
 
-        String result = post(ConstantesRest.INSCRIPTIONURL, parameters);
+        String result = RestInterface.post(ConstantesRest.INSCRIPTIONURL, parameters);
         return result;
     }
 
@@ -37,7 +37,7 @@ public class UserRest extends RestInterface {
         Map<String, String> parameters = new HashMap<String, String>();
 
         parameters.put(ConstantesRest.eventTitle, title);
-        parameters.put(ConstantesRest.eventCategory, eventCategory);
+        parameters.put(eventCategory, eventCategory);
         parameters.put(ConstantesRest.eventDescription, description);
         parameters.put(ConstantesRest.eventDate, date);
         parameters.put(ConstantesRest.eventCapacity, capacity);
@@ -45,7 +45,27 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.localisationLatitude, String.valueOf(lat));
         parameters.put(ConstantesRest.localisationLongitude, String.valueOf(lng));
 
-        String result = new UserRest().post(ConstantesRest.ADDNEWEVENTURL, parameters);
+        String result = RestInterface.post(ConstantesRest.ADDNEWEVENTURL, parameters);
+        return result;
+    }
+
+    public static String getEventNear(String latitude, String longitude) {
+        Map<String, String> parameters = new HashMap<String, String>();
+
+        parameters.put(ConstantesRest.LATITUDE, latitude);
+        parameters.put(ConstantesRest.LONGITUDE, longitude);
+
+        String result = RestInterface.get(ConstantesRest.GET_EVENT_NEAR_URL, parameters);
+        return result;
+    }
+
+    public static String joinEvent(String event_id, String email) {
+        Map<String, String> parameters = new HashMap<String, String>();
+
+        parameters.put(ConstantesRest.EVENT_ID, event_id);
+        parameters.put(ConstantesRest.EMAIL, email);
+
+        String result = RestInterface.post(ConstantesRest.JOIN_EVENT_URL, parameters);
         return result;
     }
 }
