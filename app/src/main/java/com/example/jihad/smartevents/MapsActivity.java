@@ -50,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps2);
 
         //Buttons
-        Button addEventButton = (Button) findViewById(R.id.addEventButton);
+        Button addEventButton = (Button) findViewById(R.id.returnToReceptionButton);
         addEventButton.setOnClickListener(this);
 
         Button joinEventButton = (Button) findViewById(R.id.joinEvent);
@@ -235,7 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.addEventButton:
+            case R.id.returnToReceptionButton:
                 Intent createEventIntent = new Intent(MapsActivity.this, CreateEventActivity.class);
                 startActivity(createEventIntent);
                 break;

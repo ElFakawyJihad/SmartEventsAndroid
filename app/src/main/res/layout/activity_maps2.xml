@@ -17,10 +17,10 @@
             android:background="@android:color/holo_blue_dark"/>
 
         <Button
-            android:id="@+id/addEventButton"
+            android:id="@+id/returnToReceptionButton"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Ajouter un événement"
+            android:text="Retour à l'accueil"
             android:layout_gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

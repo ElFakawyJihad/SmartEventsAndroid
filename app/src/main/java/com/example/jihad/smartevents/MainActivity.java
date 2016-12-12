@@ -39,7 +39,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.login:
                 String connectionState = null;
-                Intent sndActivity = new Intent(MainActivity.this, MapsActivity.class);
                 String userMail = email.getText().toString();
                 String userPassword = password.getText().toString();
 
@@ -55,14 +54,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
                         JSONObject data = jsonObject.getJSONObject("data");
+                        Intent receptionIntent = new Intent(MainActivity.this, ReceptionActivity.class);
 
                         connectionState = ConstantesActivity.CONNECTIONOK;
-                        sndActivity.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
-                        sndActivity.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
-                        sndActivity.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
+                        receptionIntent.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
+                        receptionIntent.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
+                        receptionIntent.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
 
                         //On peut récupérer les autres données
-                        startActivity(sndActivity);
+                        startActivity(receptionIntent);
                     } else {
                         connectionState = ConstantesActivity.CONNECTIONKO;
                     }
