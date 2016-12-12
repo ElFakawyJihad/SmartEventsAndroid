@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jihad.smartevents.CreateEventActivity">
+    tools:context="com.example.jihad.smartevents.CreateEventActivity"
+    android:background="@drawable/darkbackground">
 
     <EditText
         android:layout_width="fill_parent"
@@ -19,7 +20,9 @@
         android:id="@+id/eventTitle"
         android:layout_marginTop="12dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light" />
 
     <EditText
         android:layout_width="470px"
@@ -31,7 +34,11 @@
         android:id="@+id/eventDescription"
         android:layout_below="@+id/eventTitle"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -43,7 +50,9 @@
         android:layout_below="@+id/SpinnerEventCategory"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp" />
+        android:layout_marginTop="49dp"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -55,7 +64,9 @@
         android:layout_below="@+id/eventDate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="28dp"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -67,18 +78,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="22dp"
-        android:hint="Lieu" />
-
-    <Button
-        android:text="Créer l'évenement"
-        android:onClick="createEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/createEventButton"
-        android:layout_alignTop="@+id/eventLocalisation"
-        android:layout_toRightOf="@+id/eventDescription"
-        android:layout_toEndOf="@+id/eventDescription"
-        android:layout_marginTop="44dp" />
+        android:hint="Lieu"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"/>
 
     <Spinner
         android:id="@+id/SpinnerEventCategory"
@@ -88,8 +90,22 @@
         android:layout_below="@+id/eventDescription"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="17dp">
+        android:layout_marginTop="17dp"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:backgroundTint="@android:color/background_light">
     </Spinner>
+
+    <Button
+        android:text="Créer l'évenement"
+        android:onClick="createEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/createEventButton"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/eventLocalisation"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
