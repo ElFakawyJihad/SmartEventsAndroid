@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jihad.smartevents.Constantes.ConstantesActivity;
+import com.example.jihad.smartevents.rest.UserRest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -33,21 +35,31 @@ import java.util.HashMap;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
-    private Marker myMarker;
-    private Marker marker;
+    private Marker myMarker, marker, currentMarker;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private HashMap<String, JSONObject> markerEventRelations;
+
+    //User information
+    private String firstName;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
 
-        Intent intent = getIntent();
+        //Buttons
+        Button addEventButton = (Button) findViewById(R.id.addEventButton);
+        addEventButton.setOnClickListener(this);
+
+        Button joinEventButton = (Button) findViewById(R.id.joinEvent);
+        joinEventButton.setOnClickListener(this);
 
         //User information
-        String firstName = intent.getStringExtra(ConstantesActivity.FIRST_NAME);
+        Intent intent = getIntent();
+        firstName = intent.getStringExtra(ConstantesActivity.FIRST_NAME);
+        email = intent.getStringExtra(ConstantesActivity.EMAIL);
         TextView firstNameText = (TextView) findViewById(R.id.userName);
         firstNameText.setText(firstName);
 
@@ -60,8 +72,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapFragment.getMapAsync(this);
 
-        Button addEventButtonButton = (Button) findViewById(R.id.addEventButton);
-        addEventButtonButton.setOnClickListener(this);
 
         if(mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -70,81 +80,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .addApi(LocationServices.API)
                     .build();
         }
-    }
-
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        //Recuperer la derniere position
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        //Nettoyer la Map
-        mMap.clear();
-        // Recuperer la position actuel
-        LatLng latLong = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        //Preparer le marqueur de position
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLong); Toast.makeText(this, mLastLocation.getLatitude()+" "+mLastLocation.getLongitude(), Toast.LENGTH_LONG).show();
-        markerOptions.title("Moi "+mLastLocation.getLatitude()+" "+mLastLocation.getLongitude());
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-        myMarker = mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 12));
-
-        try {
-            //LatLng event1 = new LatLng(50.608770, 3.0643230);
-            LatLng event2 = new LatLng(-34.001, 151.025);
-
-            String eventJsonMock1 = "{" +
-                    "\"id\" : \"1\", " +
-                    "\"title\" : \"Tournoi de Volley-ball\"," +
-                    "\"latitude\" : \"50.63\", " +
-                    "\"longitude\" : \"3.064\", " +
-                    "\"description\" : \"Le tournoi de l'année à ne pas rater\", " +
-                    "\"category\" : \"Sport\", " +
-                    "\"place\" : \"3\" " +
-                    "}";
-            JSONObject event1 = new JSONObject(eventJsonMock1);
-
-            marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(event1.getString("latitude")), Double.parseDouble(event1.getString("longitude"))))
-                    .title(event1.getString("title") + "(" + event1.getString("place") + " place(s) restante(s))")
-                    .snippet(event1.getString("description"))
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            this.markerEventRelations.put(marker.getId(), event1);
-
-
-            marker = mMap.addMarker(new MarkerOptions()
-                    .position(event2)
-                    .title("Tournoi de Badminton (42 places restantes)")
-                    .snippet("Le lieu de rencontre de tous les émotions")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            this.markerEventRelations.put(marker.getId(), event1);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Toast.makeText(this, "Test on connected", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        Toast.makeText(this, "Test connection suspended", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        Toast.makeText(this, "Test connection failed", Toast.LENGTH_LONG).show();
     }
 
 
@@ -161,11 +96,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
-        LatLng sydney = new LatLng(-34, 151);
-        LatLng event1 = new LatLng(-34.01, 151.03);
-        LatLng event2 = new LatLng(-34.001, 151.025);
-
-        //Ici créer des évènements fictifs
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -175,21 +105,103 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            // Should we show an explanation?
+            /*
+            ActivityCompat.requestPermissions(MapsActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
             Toast.makeText(this, "Votre localisation GPS est désactivée.", Toast.LENGTH_LONG).show();
-            return;
+            */
+            //return;
+        } else {
+            mMap.setMyLocationEnabled(true);
+
+            this.mGoogleApiClient.connect();
+        }
+    }
+
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+            Toast.makeText(this, "GPS est désactivée.", Toast.LENGTH_LONG).show();
+
+            ActivityCompat.requestPermissions(MapsActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+            //return;
         }
 
-        mMap.setMyLocationEnabled(true);
+        //Recuperer la derniere position
+        //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        //Nettoyer la Map
+        //mMap.clear();
+        // Recuperer la position actuel
+        //LatLng latLong = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
-        this.mGoogleApiClient.connect();
+        Double lat = 50.2001;
+        Double lng = 1.2001;
+        LatLng latLong = new LatLng(lat, lng);
+        //Preparer le marqueur de position
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLong);
+        markerOptions.title("Moi");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+        myMarker = mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 12));
 
-        //Toast.makeText(this, "Pfff", Toast.LENGTH_LONG).show();
+        //String result = UserRest.getEventNear(mLastLocation.getLatitude()+"", mLastLocation.getLongitude()+"");
+        String result = UserRest.getEventNear(lat+"", lng+"");
 
+
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            String message = jsonObject.getString("message");
+
+            if(message.equals("OK")) {
+                JSONArray events = jsonObject.getJSONArray("result");
+
+                for(int e = 0; e < events.length(); e++) {
+                    JSONObject event = events.getJSONObject(e);
+
+                    marker = mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(event.getString("latitude")), Double.parseDouble(event.getString("longitude"))))
+                            .title(event.getString("titre") + " (" + event.getString("nb_places") + " places restantes)")
+                            .snippet(event.getString("description"))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                    this.markerEventRelations.put(marker.getId(), event);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Toast.makeText(this, "Test on connected", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Toast.makeText(this, "Test connection suspended", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Toast.makeText(this, "Test connection failed", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
         LinearLayout ll = (LinearLayout) findViewById(R.id.showEventDetails);
+        currentMarker = marker;
 
         //Vérifie s'il s'agit du marqueur de l'utilisateur
         if(!marker.equals(this.myMarker)) {
@@ -201,8 +213,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             JSONObject event = this.markerEventRelations.get(marker.getId());
 
             try {
-                title.setText(event.getString("title"));
-                category.setText(event.getString("category"));
+                title.setText(event.getString("titre"));
+                category.setText("Pas de categorie bizarre");
                 description.setText(event.getString("description"));
 
                 ll.setVisibility(View.VISIBLE);
@@ -222,12 +234,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onClick(View view) {
 
-        Intent sndActivity = new Intent(MapsActivity.this, CreateEventActivity.class);
-        startActivity(sndActivity);
+        switch (view.getId()) {
+            case R.id.addEventButton:
+                Intent createEventIntent = new Intent(MapsActivity.this, CreateEventActivity.class);
+                startActivity(createEventIntent);
+                break;
+            case R.id.joinEvent:
+                try {
+                    JSONObject event = this.markerEventRelations.get(this.currentMarker.getId());
 
+                    //Here, we join the event
+                    String result = UserRest.joinEvent(event.getString("id"), this.email);
+                    Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
+                    Intent joinEventConfirmationIntent = new Intent(MapsActivity.this, JoinEventConfirmationActivity.class);
+                    joinEventConfirmationIntent.putExtra(ConstantesActivity.EMAIL, this.email);
+                    joinEventConfirmationIntent.putExtra("id", event.getString("id"));
+                    joinEventConfirmationIntent.putExtra("titre", event.getString("titre"));
+                    joinEventConfirmationIntent.putExtra("description", event.getString("description"));
+                    joinEventConfirmationIntent.putExtra("date_debut", event.getString("date_debut"));
+                    joinEventConfirmationIntent.putExtra("date_fin", event.getString("date_fin"));
+                    joinEventConfirmationIntent.putExtra("latitude", event.getString("latitude"));
+                    joinEventConfirmationIntent.putExtra("longitude", event.getString("longitude"));
 
-        Toast.makeText(this, "ajouter event", Toast.LENGTH_LONG).show();
+                    startActivity(joinEventConfirmationIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
 }

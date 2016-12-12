@@ -34,7 +34,14 @@ public class ConstantesRest {
     public static final String localisationLatitude     = "latitude";
     public static final String localisationLongitude    = "longitude";
 
+    //Constantes Avoir les évènements proches-------------------
+    public static final String GET_EVENT_NEAR_URL       = "https://smarteventiagl.herokuapp.com/get_event_near";
+    public static final String LATITUDE                 = "latitude";
+    public static final String LONGITUDE                = "longitude";
 
+    //Constantes Joindre évènement-----------------------------
+    public static final String JOIN_EVENT_URL           = "https://smarteventiagl.herokuapp.com/join_event";
+    public static final String EVENT_ID                 = "event_id";
 
 
 
