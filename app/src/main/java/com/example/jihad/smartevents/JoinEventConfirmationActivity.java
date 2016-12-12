@@ -22,8 +22,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static com.example.jihad.smartevents.R.id.goHomepageButton;
-
 public class JoinEventConfirmationActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private String firstName;
     private String email;
@@ -74,8 +72,8 @@ public class JoinEventConfirmationActivity extends FragmentActivity implements O
         mapFragment.getMapAsync(this);
 
         //Buttons
-        Button goHomepageEventButton = (Button) findViewById(goHomepageButton);
-        goHomepageEventButton.setOnClickListener(this);
+        Button returnToReceptionButton = (Button) findViewById(R.id.returnToReceptionButton);
+        returnToReceptionButton.setOnClickListener(this);
 
         if(mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -116,9 +114,9 @@ public class JoinEventConfirmationActivity extends FragmentActivity implements O
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.goHomepageButton:
-                Intent createEventIntent = new Intent(JoinEventConfirmationActivity.this, MapsActivity.class);
-                startActivity(createEventIntent);
+            case R.id.returnToReceptionButton:
+                Intent receptionIntent = new Intent(JoinEventConfirmationActivity.this, ReceptionActivity.class);
+                startActivity(receptionIntent);
                 break;
             default:
                 break;

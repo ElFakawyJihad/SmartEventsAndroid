@@ -17,10 +17,10 @@
             android:background="@android:color/holo_blue_dark"/>
 
         <Button
-            android:id="@+id/goHomepageButton"
+            android:id="@+id/returnToReceptionButton"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Accueil"
+            android:text="Retour à l'accueil"
             android:layout_gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -38,7 +38,7 @@
         android:visibility="visible">
 
         <TextView
-            android:text="Félicitations, vous avez bien rejoint l'évènement!"
+            android:text="Félicitations, vous avez rejoint l'évènement!"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_width="wrap_content"
