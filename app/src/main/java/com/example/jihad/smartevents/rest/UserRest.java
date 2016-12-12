@@ -18,7 +18,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.PASSWORD, password);
         //parameters.put(ConstantesRest.F)
 
-        String result = RestInterface.post(ConstantesRest.INSCRIPTIONURL, parameters);
+        String result = post(ConstantesRest.INSCRIPTIONURL, parameters);
         return result;
     }
 
@@ -29,7 +29,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.PASSWORD, password);
 
 
-        String result = RestInterface.post(ConstantesRest.CONNECTIONURL, parameters);
+        String result = post(ConstantesRest.CONNECTIONURL, parameters);
         return result;
     }
 
@@ -45,7 +45,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.localisationLatitude, String.valueOf(lat));
         parameters.put(ConstantesRest.localisationLongitude, String.valueOf(lng));
 
-        String result = RestInterface.post(ConstantesRest.ADDNEWEVENTURL, parameters);
+        String result = post(ConstantesRest.ADDNEWEVENTURL, parameters);
         return result;
     }
 
@@ -55,7 +55,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.LATITUDE, latitude);
         parameters.put(ConstantesRest.LONGITUDE, longitude);
 
-        String result = RestInterface.get(ConstantesRest.GET_EVENT_NEAR_URL, parameters);
+        String result = get(ConstantesRest.GET_EVENT_NEAR_URL, parameters);
         return result;
     }
 
@@ -65,7 +65,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.EVENT_ID, event_id);
         parameters.put(ConstantesRest.EMAIL, email);
 
-        String result = RestInterface.post(ConstantesRest.JOIN_EVENT_URL, parameters);
+        String result = post(ConstantesRest.JOIN_EVENT_URL, parameters);
         return result;
     }
 }
