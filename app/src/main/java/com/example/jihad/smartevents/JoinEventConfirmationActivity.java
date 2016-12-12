@@ -22,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.joda.time.DateTime;
+
 public class JoinEventConfirmationActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private String firstName;
     private String email;
@@ -33,6 +35,7 @@ public class JoinEventConfirmationActivity extends FragmentActivity implements O
     private String latitude;
     private String longitude;
     private String organisateur_id;
+    private String lieu_name;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -54,8 +57,11 @@ public class JoinEventConfirmationActivity extends FragmentActivity implements O
         description = intent.getStringExtra("description");
         latitude = intent.getStringExtra("latitude");
         longitude = intent.getStringExtra("longitude");
+        date_debut = intent.getStringExtra("date_debut");
+        lieu_name = intent.getStringExtra("lieu_name");
 
-        Toast.makeText(this, latitude + " " + longitude, Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, latitude + " " + longitude, Toast.LENGTH_LONG).show();
 
         //Set view
         TextView firstNameText = (TextView) findViewById(R.id.userName);
@@ -64,6 +70,11 @@ public class JoinEventConfirmationActivity extends FragmentActivity implements O
         titreText.setText(titre);
         TextView descriptionText = (TextView) findViewById(R.id.eventDescription);
         descriptionText.setText(description);
+        TextView dateDebutText = (TextView) findViewById(R.id.eventDate);
+        DateTime dt = new DateTime(date_debut);
+        dateDebutText.setText(dt.getDayOfMonth()+"/"+dt.getMonthOfYear()+"/"+dt.getYear()+" à "+(dt.getHourOfDay()-1)+"H"+dt.getMinuteOfHour());
+        TextView addressText = (TextView) findViewById(R.id.eventAddress);
+        addressText.setText(lieu_name);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

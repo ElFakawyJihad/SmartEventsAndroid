@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -206,16 +207,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Vérifie s'il s'agit du marqueur de l'utilisateur
         if(!marker.equals(this.myMarker)) {
             TextView title = (TextView) findViewById(R.id.eventTitle);
-            TextView category = (TextView) findViewById(R.id.eventCategory);
+            //TextView category = (TextView) findViewById(R.id.eventCategory);
             TextView description = (TextView) findViewById(R.id.eventDescription);
+            TextView date = (TextView) findViewById(R.id.eventDate);
 
 
             JSONObject event = this.markerEventRelations.get(marker.getId());
 
             try {
                 title.setText(event.getString("titre"));
-                category.setText("Pas de categorie bizarre");
+                //category.setText("Pas de categorie bizarre");
                 description.setText(event.getString("description"));
+                DateTime dt = new DateTime(event.getString("date_debut"));
+                date.setText(dt.getDayOfMonth()+"/"+dt.getMonthOfYear()+"/"+dt.getYear()+" à "+(dt.getHourOfDay()-1)+"H"+dt.getMinuteOfHour());
 
                 ll.setVisibility(View.VISIBLE);
             } catch(Exception e) {
@@ -256,6 +260,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     joinEventConfirmationIntent.putExtra("date_fin", event.getString("date_fin"));
                     joinEventConfirmationIntent.putExtra("latitude", event.getString("latitude"));
                     joinEventConfirmationIntent.putExtra("longitude", event.getString("longitude"));
+                    joinEventConfirmationIntent.putExtra("lieu_name", event.getString("lieu_name"));
 
                     startActivity(joinEventConfirmationIntent);
                 } catch (Exception e) {

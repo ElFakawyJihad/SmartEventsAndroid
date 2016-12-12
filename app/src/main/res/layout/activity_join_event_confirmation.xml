@@ -54,8 +54,9 @@
         <TextView
             android:id="@+id/eventTitle"
             android:text="TextView"
-            android:textColor="@color/blue"
+            android:textColor="@color/green"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -65,14 +66,17 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
         <TextView
             android:id="@+id/eventCategory"
             android:text="Pas "
-            android:textColor="@color/blue"
+            android:textColor="@color/green"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:text="Description"
@@ -84,8 +88,9 @@
         <TextView
             android:id="@+id/eventDescription"
             android:text="Tournoi"
-            android:textColor="@color/blue"
+            android:textColor="@color/green"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -99,8 +104,9 @@
         <TextView
             android:id="@+id/eventAddress"
             android:text="7 rue"
-            android:textColor="@color/blue"
+            android:textColor="@color/green"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -113,9 +119,10 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/eventDate"
-            android:text="13/12/2016"
-            android:textColor="@color/blue"
+            android:text=""
+            android:textColor="@color/green"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -128,9 +135,10 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/eventOrganiser"
-            android:text="José de la Vega"
-            android:textColor="@color/blue"
+            android:text=""
+            android:textColor="@color/green"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
