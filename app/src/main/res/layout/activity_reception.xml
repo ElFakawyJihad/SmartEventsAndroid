@@ -9,18 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jihad.smartevents.ReceptionActivity"
-    android:background="@android:color/holo_orange_light">
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/round"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Je m'ennuie"
-        android:textColor="#fff"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="30sp" />
+    android:background="@android:color/holo_blue_light">
 
     <Button
         android:text="Mon profil"
@@ -29,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/button4" />
+        android:id="@+id/button4"
+        android:background="@android:color/holo_blue_dark" />
 
     <Button
         android:text="Créer un événement"
@@ -39,6 +29,38 @@
         android:layout_alignLeft="@+id/button3"
         android:layout_alignStart="@+id/button3"
         android:layout_marginBottom="28dp"
-        android:id="@+id/button5" />
+        android:id="@+id/button5"
+        android:background="@android:color/holo_blue_dark" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/LogOutbutton"
+        android:background="@drawable/SignOut"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="SmartEvents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LogOutbutton"
+        android:layout_marginTop="52dp"
+        android:id="@+id/textView"
+        android:gravity="center_horizontal"
+        android:textSize="36sp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/round"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Je m'ennuie"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
