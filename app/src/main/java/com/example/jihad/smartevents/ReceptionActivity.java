@@ -1,6 +1,8 @@
 package com.example.jihad.smartevents;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,7 +40,19 @@ public class ReceptionActivity extends Activity implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.viewMyProfile:
                 //TODO
-                Toast.makeText(this, "Votre profil n'est pas accessible pour le moment", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(ReceptionActivity.this);
+                builder1.setMessage("Votre profil n'est pas accessible pour le moment.");
+                builder1.setCancelable(true);
+                builder1.setIcon(R.drawable.sorry);
+                builder1.setPositiveButton(
+                        "Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
                 break;
 
             case ImBoredButton:

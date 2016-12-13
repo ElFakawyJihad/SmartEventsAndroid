@@ -1,6 +1,8 @@
 package com.example.jihad.smartevents;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -44,14 +46,28 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 
                 if(password.equals(passwordConfirmation)){
-                    Intent intent = new Intent(RegistrationActivity.this, MapsActivity.class);
+                    final Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
 
                     try {
                         String result = UserRest.inscription(email, password);
                         JSONObject reponse = new JSONObject(result);
                         if(reponse.getString(ConstantesRest.GETMESSAGE).equals(ConstantesRest.INSCRIPTIONOK)) {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrationActivity.this);
+                            builder1.setMessage("Votre compte utilisateur a bien été créé, vous allez être redirigé à la page de connexion.");
+                            builder1.setCancelable(true);
+                            builder1.setTitle("Compte utilisateur créé");
+                            builder1.setIcon(R.drawable.newuser);
+                            builder1.setPositiveButton(
+                                    "Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
 
-                            startActivity(intent);
+                                            dialog.cancel();
+                                            startActivity(intent);
+                                        }
+                                    });
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

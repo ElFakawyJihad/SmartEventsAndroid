@@ -1,6 +1,8 @@
 package com.example.jihad.smartevents;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -28,6 +30,8 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
 
     String connectionState = null;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,8 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
         eventDate = (EditText) findViewById(R.id.eventDate);
         eventCapacity = (EditText) findViewById(R.id.eventCapacity);
         eventLocalisation = (EditText) findViewById(R.id.eventLocalisation);
+
+
 
     }
 
@@ -88,7 +94,7 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
 
 
                 String result = UserRest.createEvent(title,eventCategory,description,date,capacity,localisation,lat,lng);
-                Intent EventCreationInfoIntent = new Intent(CreateEventActivity.this, ReceptionActivity.class);
+                final Intent EventCreationInfoIntent = new Intent(CreateEventActivity.this, ReceptionActivity.class);
                 //Toast.makeText(this,result,Toast.LENGTH_LONG).show();
 
                 try {
@@ -105,7 +111,23 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
                         EventCreationInfoIntent.putExtra(ConstantesRest.localisationLatitude, lat);
                         EventCreationInfoIntent.putExtra(ConstantesRest.localisationLongitude, lng);
 
-                        startActivity(EventCreationInfoIntent);
+
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(CreateEventActivity.this);
+                        builder1.setMessage("L'événement a bien été créé, vous allez être redirigé à la page d'accueil.");
+                        builder1.setCancelable(true);
+                        builder1.setTitle("Evénement créé");
+                        builder1.setIcon(R.drawable.succes);
+                        builder1.setPositiveButton(
+                                "Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        dialog.cancel();
+                                        startActivity(EventCreationInfoIntent);
+                                    }
+                                });
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
                     } else {
                         Toast.makeText(this,"Veuillez remplir tous les champs du formulaire de création.",Toast.LENGTH_LONG).show();
                     }

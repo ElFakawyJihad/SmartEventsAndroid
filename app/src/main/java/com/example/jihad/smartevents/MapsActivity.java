@@ -107,18 +107,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             // Should we show an explanation?
-            /*
+
             ActivityCompat.requestPermissions(MapsActivity.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         1);
-            Toast.makeText(this, "Votre localisation GPS est désactivée.", Toast.LENGTH_LONG).show();
-            */
-            //return;
-        } else {
-            mMap.setMyLocationEnabled(true);
+            //Toast.makeText(this, "Votre localisation GPS est désactivée.", Toast.LENGTH_LONG).show();
 
-            this.mGoogleApiClient.connect();
+          return;
         }
+
+        mMap.setMyLocationEnabled(true);
+        this.mGoogleApiClient.connect();
+
     }
 
 
@@ -133,12 +133,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 
-            Toast.makeText(this, "GPS est désactivée.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "GPS est désactivée.", Toast.LENGTH_LONG).show();
 
             ActivityCompat.requestPermissions(MapsActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     1);
-            //return;
+            return;
         }
 
         //Recuperer la derniere position
