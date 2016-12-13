@@ -23,16 +23,16 @@ public class ConstantesRest {
 
 
     //Constantes Création d'un évenement------------------------
-    public static final String ADDNEWEVENTURL           = "https://smarteventiagl.herokuapp.com/addnewevent";
+    public static final String CREATE_EVENT_URL         = "https://smarteventiagl.herokuapp.com/create_event";
     public static final String CREATEEVENTOK            = "OK";
-    public static final String eventTitle               = "title";
-    public static final String eventCategory            = "category";
-    public static final String eventDescription         = "description";
-    public static final String eventDate                = "date";
-    public static final String eventCapacity            = "capacity";
-    public static final String eventLocalisation        = "localisation";
-    public static final String localisationLatitude     = "latitude";
-    public static final String localisationLongitude    = "longitude";
+    public static final String eventTitle               = "eventTitle";
+    public static final String eventCategory            = "eventCategory";
+    public static final String eventDescription         = "eventDescription";
+    public static final String eventDate                = "eventDate";
+    public static final String eventCapacity            = "eventCapacity";
+    public static final String eventLocalisation        = "eventLocalisation";
+    public static final String localisationLatitude     = "localisationLat";
+    public static final String localisationLongitude    = "localisationLong";
 
     //Constantes Avoir les évènements proches-------------------
     public static final String GET_EVENT_NEAR_URL       = "https://smarteventiagl.herokuapp.com/get_event_near";

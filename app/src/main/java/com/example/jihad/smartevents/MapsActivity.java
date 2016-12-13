@@ -142,15 +142,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //Recuperer la derniere position
-        //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         //Nettoyer la Map
-        //mMap.clear();
+        mMap.clear();
         // Recuperer la position actuel
-        //LatLng latLong = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        Double lat = mLastLocation.getLatitude();
+        Double lng = mLastLocation.getLongitude();
+        LatLng latLong = new LatLng(lat, lng);
 
+        /*
         Double lat = 50.2001;
         Double lng = 1.2001;
         LatLng latLong = new LatLng(lat, lng);
+        */
         //Preparer le marqueur de position
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLong);
