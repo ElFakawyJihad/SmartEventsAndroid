@@ -63,7 +63,7 @@
         android:textColorHint="@android:color/background_light" />
 
     <TextView
-        android:text="Rejoignez des évènements qui vous corresepondent"
+        android:text="La réponse rapide à votre ennui"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mainActivityTitle"
