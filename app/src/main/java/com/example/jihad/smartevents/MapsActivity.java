@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,8 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps2);
 
         //Buttons
-        Button addEventButton = (Button) findViewById(R.id.addEventButton);
-        addEventButton.setOnClickListener(this);
+        Button returnToReceptionButton = (Button) findViewById(R.id.returnToReceptionButton);
+        returnToReceptionButton.setOnClickListener(this);
 
         Button joinEventButton = (Button) findViewById(R.id.joinEvent);
         joinEventButton.setOnClickListener(this);
@@ -141,15 +142,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //Recuperer la derniere position
-        //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         //Nettoyer la Map
-        //mMap.clear();
+        mMap.clear();
         // Recuperer la position actuel
-        //LatLng latLong = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        Double lat = mLastLocation.getLatitude();
+        Double lng = mLastLocation.getLongitude();
+        LatLng latLong = new LatLng(lat, lng);
 
+        /*
         Double lat = 50.2001;
         Double lng = 1.2001;
         LatLng latLong = new LatLng(lat, lng);
+        */
         //Preparer le marqueur de position
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLong);
@@ -206,16 +211,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Vérifie s'il s'agit du marqueur de l'utilisateur
         if(!marker.equals(this.myMarker)) {
             TextView title = (TextView) findViewById(R.id.eventTitle);
-            TextView category = (TextView) findViewById(R.id.eventCategory);
+            //TextView category = (TextView) findViewById(R.id.eventCategory);
             TextView description = (TextView) findViewById(R.id.eventDescription);
+            TextView date = (TextView) findViewById(R.id.eventDate);
 
 
             JSONObject event = this.markerEventRelations.get(marker.getId());
 
             try {
                 title.setText(event.getString("titre"));
-                category.setText("Pas de categorie bizarre");
+                //category.setText("Pas de categorie bizarre");
                 description.setText(event.getString("description"));
+                DateTime dt = new DateTime(event.getString("date_debut"));
+                date.setText(dt.getDayOfMonth()+"/"+dt.getMonthOfYear()+"/"+dt.getYear()+" à "+(dt.getHourOfDay()-1)+"H"+dt.getMinuteOfHour());
 
                 ll.setVisibility(View.VISIBLE);
             } catch(Exception e) {
@@ -235,9 +243,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.addEventButton:
-                Intent createEventIntent = new Intent(MapsActivity.this, CreateEventActivity.class);
-                startActivity(createEventIntent);
+            case R.id.returnToReceptionButton:
+                Intent receptionIntent = new Intent(MapsActivity.this, ReceptionActivity.class);
+                startActivity(receptionIntent);
                 break;
             case R.id.joinEvent:
                 try {
@@ -256,6 +264,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     joinEventConfirmationIntent.putExtra("date_fin", event.getString("date_fin"));
                     joinEventConfirmationIntent.putExtra("latitude", event.getString("latitude"));
                     joinEventConfirmationIntent.putExtra("longitude", event.getString("longitude"));
+                    joinEventConfirmationIntent.putExtra("lieu_name", event.getString("lieu_name"));
 
                     startActivity(joinEventConfirmationIntent);
                 } catch (Exception e) {

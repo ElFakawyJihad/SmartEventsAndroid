@@ -97,8 +97,7 @@
     </Spinner>
 
     <Button
-        android:text="Créer l'évenement"
-        android:onClick="createEvent"
+        android:text="Créer l'évènement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/createEventButton"

@@ -49,6 +49,9 @@
         <activity android:name=".EventCreationInfoActivity" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".JoinEventConfirmationActivity" />
+        <activity
+            android:name=".ReceptionActivity"
+            android:label="@string/title_activity_reception"></activity>
     </application>
 
 </manifest>

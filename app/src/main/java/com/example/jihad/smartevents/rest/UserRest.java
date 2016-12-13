@@ -33,11 +33,11 @@ public class UserRest extends RestInterface {
         return result;
     }
 
-    public static String createNewEvent(String title, String eventCategory, String description, String date, String capacity, String localisation,double lat, double lng){
+    public static String createEvent(String title, String eventCategory, String description, String date, String capacity, String localisation,double lat, double lng){
         Map<String, String> parameters = new HashMap<String, String>();
 
         parameters.put(ConstantesRest.eventTitle, title);
-        parameters.put(eventCategory, eventCategory);
+        parameters.put(ConstantesRest.eventCategory, eventCategory);
         parameters.put(ConstantesRest.eventDescription, description);
         parameters.put(ConstantesRest.eventDate, date);
         parameters.put(ConstantesRest.eventCapacity, capacity);
@@ -45,7 +45,7 @@ public class UserRest extends RestInterface {
         parameters.put(ConstantesRest.localisationLatitude, String.valueOf(lat));
         parameters.put(ConstantesRest.localisationLongitude, String.valueOf(lng));
 
-        String result = post(ConstantesRest.ADDNEWEVENTURL, parameters);
+        String result = post(ConstantesRest.CREATE_EVENT_URL, parameters);
         return result;
     }
 

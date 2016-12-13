@@ -6,93 +6,123 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.jihad.smartevents.Constantes.ConstantesActivity;
 import com.example.jihad.smartevents.Constantes.ConstantesRest;
 import com.example.jihad.smartevents.rest.UserRest;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
 
 
-public class CreateEventActivity extends Activity {
+public class CreateEventActivity extends Activity implements View.OnClickListener {
+
+    private String result, title, eventCategory, description, date, capacity, localisation;
+    private Spinner SpinnerEventCategory;
+    private EditText eventTitle, eventDescription, eventDate, eventCapacity, eventLocalisation;
+    private Double lat = 0.0, lng = 0.0;
+
+    String connectionState = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        //Buttons
+        Button createEventButton = (Button) findViewById(R.id.createEventButton);
+        createEventButton.setOnClickListener(this);
+
+        //get Views
+        eventTitle = (EditText) findViewById(R.id.eventTitle);
+        SpinnerEventCategory = (Spinner) findViewById(R.id.SpinnerEventCategory);
+        eventDescription = (EditText) findViewById(R.id.eventDescription);
+        eventDate = (EditText) findViewById(R.id.eventDate);
+        eventCapacity = (EditText) findViewById(R.id.eventCapacity);
+        eventLocalisation = (EditText) findViewById(R.id.eventLocalisation);
+
     }
 
-    public void createEvent(View view) throws IOException{
-        String connectionState = null;
-        Intent sndActivity = new Intent(CreateEventActivity.this, EventCreationInfoActivity.class);
 
-        final EditText eventTitle = (EditText) findViewById(R.id.eventTitle);
-        String title = eventTitle.getText().toString();
+    @Override
+    public void onClick(View view) {
 
-        final Spinner SpinnerEventCategory = (Spinner) findViewById(R.id.SpinnerEventCategory);
-        String eventCategory = SpinnerEventCategory.getSelectedItem().toString();
+        switch (view.getId()) {
+            case R.id.createEventButton:
 
-        final EditText eventDescription = (EditText) findViewById(R.id.eventDescription);
-        String description = eventDescription.getText().toString();
+                Toast.makeText(this,"clic sur le bouton create..",Toast.LENGTH_LONG).show();
 
-        final EditText eventDate = (EditText) findViewById(R.id.eventDate);
-        String date = eventDate.getText().toString();
+                title = eventTitle.getText().toString();
+                eventCategory = SpinnerEventCategory.getSelectedItem().toString();
+                description = eventDescription.getText().toString();
+                date = eventDate.getText().toString();
+                capacity = eventCapacity.getText().toString();
+                //localisation = eventLocalisation.getText().toString();
 
-        final EditText eventCapacity = (EditText) findViewById(R.id.eventCapacity);
-        String capacity = eventCapacity.getText().toString();
-
-        final EditText eventLocalisation = (EditText) findViewById(R.id.eventLocalisation);
-        String localisation = eventLocalisation.getText().toString();
-
-        Geocoder gc = new Geocoder(this);
-        List<Address> list = gc.getFromLocationName(localisation,1);
-        Address add = list.get(0);
-
-        //String locality = add.getLocality();
-        //Toast.makeText(this,locality,Toast.LENGTH_LONG).show();
-
-        double lat = add.getLatitude();
-        double lng = add.getLongitude();
-
-        //Toast.makeText(this,String.valueOf(lat)+"/"+String.valueOf(lng),Toast.LENGTH_LONG).show();
-
-        String result = new UserRest().createNewEvent(title,eventCategory,description,date,capacity,localisation,lat,lng);
-
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            String message = jsonObject.getString("message");
+                //localisation = "1 Rue Jules Guesde, 59155 Faches-Thumesnil";
+                localisation = "7 Avenue Paul Langevin, 59650 Villeneuve-d'Ascq";
+                eventCategory = "0";
+                date = "2016-12-13T01:56:00.000Z";
 
 
-            if(message.equals(ConstantesRest.CREATEEVENTOK)) {
-                JSONObject data = jsonObject.getJSONObject("data");
-
-                connectionState = ConstantesActivity.CREATENEWEVENTOK;
-                sndActivity.putExtra(ConstantesRest.eventTitle, data.getString("eventTitle"));
-                sndActivity.putExtra(ConstantesRest.eventCategory, data.getString("eventCategory"));
-                sndActivity.putExtra(ConstantesRest.eventDescription, data.getString("eventDescription"));
-                sndActivity.putExtra(ConstantesRest.eventDate, data.getString("eventDate"));
-                sndActivity.putExtra(ConstantesRest.eventCapacity, data.getString("eventCapacity"));
-                sndActivity.putExtra(ConstantesRest.eventLocalisation, data.getString("eventLocalisation"));
-                sndActivity.putExtra(ConstantesRest.localisationLatitude, data.getString("localisationLat"));
-                sndActivity.putExtra(ConstantesRest.localisationLongitude,data.getString("localisationLong"));
-
-                startActivity(sndActivity);
-            } else {
-                connectionState = ConstantesActivity.CREATENEWEVENTKO;
-            }
 
 
-        } catch (Exception e) {
-            Toast.makeText(this,"Erreur lors de la création de l'évenement. Veuillez corriger les informations soumises dans le formulaire de création.",Toast.LENGTH_LONG).show();
+
+                try {
+                    Geocoder gc = new Geocoder(this);
+                    List<Address> list = gc.getFromLocationName(localisation, 1);
+                    Address add = list.get(0);
+
+                    //String locality = add.getLocality();
+                    //Toast.makeText(this,locality,Toast.LENGTH_LONG).show();
+
+                    lat = add.getLatitude();
+                    lng = add.getLongitude();
+
+                    Toast.makeText(this,lat+" "+lng,Toast.LENGTH_LONG).show();
+                }  catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this,"Exception: "+lat+" "+lng,Toast.LENGTH_LONG).show();
+                }
+
+
+
+                String result = UserRest.createEvent(title,eventCategory,description,date,capacity,localisation,lat,lng);
+                Intent EventCreationInfoIntent = new Intent(CreateEventActivity.this, EventCreationInfoActivity.class);
+                Toast.makeText(this,result,Toast.LENGTH_LONG).show();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String message = jsonObject.getString("message");
+
+                    if(message.equals(ConstantesRest.CREATEEVENTOK)) {
+                        EventCreationInfoIntent.putExtra(ConstantesRest.eventTitle, title);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.eventCategory, eventCategory);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.eventDescription, description);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.eventDate, date);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.eventCapacity, capacity);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.eventLocalisation, localisation);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.localisationLatitude, lat);
+                        EventCreationInfoIntent.putExtra(ConstantesRest.localisationLongitude, lng);
+
+                        startActivity(EventCreationInfoIntent);
+                    } else {
+                        Toast.makeText(this,"creation de l'event a échoué",Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this,"Erreur lors de la création de l'évenement. Veuillez corriger les informations soumises dans le formulaire de création.",Toast.LENGTH_LONG).show();
+                }
+
+                break;
+            default:
+                break;
         }
-
-        Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
     }
 
 
