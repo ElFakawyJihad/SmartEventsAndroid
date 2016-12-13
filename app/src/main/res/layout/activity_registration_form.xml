@@ -77,35 +77,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/birthdayRegistration"
-        android:layout_centerHorizontal="true"
         android:id="@+id/radioGroup"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:textColor="@android:color/background_light">
 
-    </RadioGroup>
+
 
     <RadioButton
-        android:text="Woman"
+        android:text="Femme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/womanRegistration"
         android:onClick="onRadioButtonClicked"
         android:layout_alignBaseline="@+id/manRegistration"
         android:layout_alignBottom="@+id/manRegistration"
-        android:layout_centerHorizontal="true"
         android:textColor="@android:color/background_light"
         android:buttonTint="@android:color/background_light"/>
 
     <RadioButton android:id="@+id/manRegistration"
-        android:text="Man"
+        android:text="Homme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onRadioButtonClicked"
-        android:layout_marginTop="37dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_below="@+id/radioGroup"
         android:layout_toLeftOf="@+id/nextStepRegistration"
         android:layout_toStartOf="@+id/nextStepRegistration"
         android:textColor="@android:color/background_light"
         android:buttonTint="@android:color/background_light"/>
+    </RadioGroup>
 </RelativeLayout>
