@@ -54,23 +54,19 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.createEventButton:
 
-                Toast.makeText(this,"clic sur le bouton create..",Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"clic sur le bouton create..",Toast.LENGTH_LONG).show();
 
                 title = eventTitle.getText().toString();
                 eventCategory = SpinnerEventCategory.getSelectedItem().toString();
                 description = eventDescription.getText().toString();
                 date = eventDate.getText().toString();
                 capacity = eventCapacity.getText().toString();
-                //localisation = eventLocalisation.getText().toString();
+                localisation = eventLocalisation.getText().toString();
 
                 //localisation = "1 Rue Jules Guesde, 59155 Faches-Thumesnil";
-                localisation = "7 Avenue Paul Langevin, 59650 Villeneuve-d'Ascq";
-                eventCategory = "0";
-                date = "2016-12-13T01:56:00.000Z";
-
-
-
-
+                //localisation = "7 Avenue Paul Langevin, 59650 Villeneuve-d'Ascq";
+                //eventCategory = "0";
+                //date = "2016-12-13T01:56:00.000Z";
 
                 try {
                     Geocoder gc = new Geocoder(this);
@@ -83,17 +79,17 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
                     lat = add.getLatitude();
                     lng = add.getLongitude();
 
-                    Toast.makeText(this,lat+" "+lng,Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this,lat+" "+lng,Toast.LENGTH_LONG).show();
                 }  catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(this,"Exception: "+lat+" "+lng,Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this,"Exception: "+lat+" "+lng,Toast.LENGTH_LONG).show();
                 }
 
 
 
                 String result = UserRest.createEvent(title,eventCategory,description,date,capacity,localisation,lat,lng);
-                Intent EventCreationInfoIntent = new Intent(CreateEventActivity.this, EventCreationInfoActivity.class);
-                Toast.makeText(this,result,Toast.LENGTH_LONG).show();
+                Intent EventCreationInfoIntent = new Intent(CreateEventActivity.this, ReceptionActivity.class);
+                //Toast.makeText(this,result,Toast.LENGTH_LONG).show();
 
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -111,7 +107,7 @@ public class CreateEventActivity extends Activity implements View.OnClickListene
 
                         startActivity(EventCreationInfoIntent);
                     } else {
-                        Toast.makeText(this,"creation de l'event a échoué",Toast.LENGTH_LONG).show();
+                        Toast.makeText(this,"Veuillez remplir tous les champs du formulaire de création.",Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {

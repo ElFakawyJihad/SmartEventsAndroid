@@ -13,6 +13,10 @@ import static com.example.jihad.smartevents.R.id.createEventButton;
 public class ReceptionActivity extends Activity implements View.OnClickListener{
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reception);
