@@ -35,32 +35,36 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="@drawable/darkbackground">
 
         <TextView
             android:text="Titre"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/background_light"
+            android:textColor="@android:color/background_light"/>
         <TextView
             android:id="@+id/eventTitle"
             android:text="TextView"
-            android:textColor="@color/green"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/background_light"
+            android:textColor="@android:color/background_light"/>
 
         <TextView
             android:text="Catégorie"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textColorHint="@android:color/background_light"
+            android:textColor="@android:color/background_light"/>
         <TextView
             android:id="@+id/eventCategory"
             android:text="Pas "
@@ -75,17 +79,19 @@
             android:text="Description"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/background_light"
+            android:textColor="@android:color/background_light"/>
         <TextView
             android:id="@+id/eventDescription"
             android:text="Tournoi"
-            android:textColor="@color/green"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/background_light"
+            android:textColor="@android:color/background_light"/>
 
         <TextView
             android:text="Date"
