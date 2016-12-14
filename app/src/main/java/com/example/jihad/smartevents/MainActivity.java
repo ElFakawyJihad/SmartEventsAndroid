@@ -25,6 +25,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
+
         Button loginButton = (Button) findViewById(R.id.login);
         loginButton.setOnClickListener(this);
 
@@ -32,54 +33,49 @@ public class MainActivity extends Activity implements View.OnClickListener {
         registerButton.setOnClickListener(this);
 
 }
-    
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.login:
-                String connectionState = null;
-                String userMail = email.getText().toString();
-                String userPassword = password.getText().toString();
+    public void onClick(View v){
 
-                //String userMail = "dureyantonin@gmail.com";
-                //String userPassword = "azerty01";
+        if(v.getId() == R.id.login){
+            String connectionState = null;
+            String userMail = email.getText().toString();
+            String userPassword = password.getText().toString();
 
-                String result = new UserRest().connection(userMail,userPassword);
+            //String userMail = "dureyantonin@gmail.com";
+            //String userPassword = "azerty01";
 
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    String message = jsonObject.getString("message");
+            String result = new UserRest().connection(userMail,userPassword);
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String message = jsonObject.getString("message");
 
 
-                    if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
-                        JSONObject data = jsonObject.getJSONObject("data");
-                        Intent receptionIntent = new Intent(MainActivity.this, ReceptionActivity.class);
+                if(message.equals(ConstantesRest.IDENTIFICATIONOK)) {
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    Intent receptionIntent = new Intent(MainActivity.this, ReceptionActivity.class);
 
-                        connectionState = ConstantesActivity.CONNECTIONOK;
-                        receptionIntent.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
-                        receptionIntent.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
-                        receptionIntent.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
+                    connectionState = ConstantesActivity.CONNECTIONOK;
+                    receptionIntent.putExtra(ConstantesActivity.EMAIL, data.getString("email"));
+                    receptionIntent.putExtra(ConstantesActivity.FIRST_NAME, data.getString("first_name"));
+                    receptionIntent.putExtra(ConstantesActivity.LAST_NAME, data.getString("last_name"));
 
-                        //On peut récupérer les autres données
-                        startActivity(receptionIntent);
-                    } else {
-                        connectionState = ConstantesActivity.CONNECTIONKO;
-                    }
-
-
-                } catch (Exception e) {
-                    //Exception à gérer
+                    //On peut récupérer les autres données
+                    startActivity(receptionIntent);
+                } else {
+                    connectionState = ConstantesActivity.CONNECTIONKO;
                 }
 
-                Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.subscribeButton:
-                Intent registrationFormActivity = new Intent(MainActivity.this, RegistrationFormActivity.class);
-                startActivity(registrationFormActivity);
-                break;
-            default:
-                break;
+
+            } catch (Exception e) {
+                //Exception à gérer
+            }
+
+            Toast.makeText(this, connectionState, Toast.LENGTH_LONG).show();
+
+        }else if(v.getId() == R.id.subscribeButton){
+            Intent registrationFormActivity = new Intent(MainActivity.this, RegistrationFormActivity.class);
+            startActivity(registrationFormActivity);
         }
 
     }

@@ -113,11 +113,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         1);
             //Toast.makeText(this, "Votre localisation GPS est désactivée.", Toast.LENGTH_LONG).show();
 
-            return;
+          return;
         }
-            mMap.setMyLocationEnabled(true);
 
-            this.mGoogleApiClient.connect();
+        mMap.setMyLocationEnabled(true);
+        this.mGoogleApiClient.connect();
 
     }
 
@@ -133,7 +133,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 
-            Toast.makeText(this, "GPS est désactivée.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "GPS est désactivée.", Toast.LENGTH_LONG).show();
 
             ActivityCompat.requestPermissions(MapsActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -253,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     //Here, we join the event
                     String result = UserRest.joinEvent(event.getString("id"), this.email);
-                    Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
                     Intent joinEventConfirmationIntent = new Intent(MapsActivity.this, JoinEventConfirmationActivity.class);
                     joinEventConfirmationIntent.putExtra(ConstantesActivity.EMAIL, this.email);
