@@ -253,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     //Here, we join the event
                     String result = UserRest.joinEvent(event.getString("id"), this.email);
-                    Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
                     Intent joinEventConfirmationIntent = new Intent(MapsActivity.this, JoinEventConfirmationActivity.class);
                     joinEventConfirmationIntent.putExtra(ConstantesActivity.EMAIL, this.email);
