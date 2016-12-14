@@ -12,19 +12,6 @@
     android:background="@drawable/darkbackground">
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Titre de l'évenement"
-        android:ems="10"
-        android:id="@+id/eventTitle"
-        android:layout_marginTop="12dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light" />
-
-    <EditText
         android:layout_width="470px"
         android:layout_height="180px"
         android:inputType="text"
@@ -39,36 +26,6 @@
         android:textColorHint="@android:color/background_light"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:focusable="false"
-        android:id="@+id/eventDate"
-        android:hint="Date de l'évènement"
-        android:layout_below="@+id/SpinnerEventCategory"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"/>
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:focusable="false"
-        android:id="@+id/eventTime"
-        android:hint="Heure de l'évènement"
-        android:layout_below="@+id/eventDate"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -121,6 +78,49 @@
         android:layout_below="@+id/eventLocalisation"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="Titre de l'évenement"
+        android:ems="10"
+        android:id="@+id/eventTitle"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:focusable="false"
+        android:id="@+id/eventDate"
+        android:hint="Date de l'évènement"
+        android:layout_marginTop="25dp"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:layout_below="@+id/SpinnerEventCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:focusable="false"
+        android:id="@+id/eventTime"
+        android:hint="Heure de l'évènement"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:layout_below="@+id/eventDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
