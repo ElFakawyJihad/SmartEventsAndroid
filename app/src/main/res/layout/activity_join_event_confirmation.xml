@@ -35,10 +35,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:elevation="1dp"
+        android:background="@android:color/holo_blue_light">
 
         <TextView
-            android:text="Félicitations, vous avez rejoint l'évènement!"
+            android:text="Vous avez bien rejoint l'évènement!"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_width="wrap_content"
