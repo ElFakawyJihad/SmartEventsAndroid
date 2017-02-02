@@ -51,7 +51,10 @@
         <activity android:name=".JoinEventConfirmationActivity" />
         <activity
             android:name=".ReceptionActivity"
-            android:label="@string/title_activity_reception"></activity>
+            android:label="@string/title_activity_reception" />
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat"></activity>
     </application>
 
 </manifest>
