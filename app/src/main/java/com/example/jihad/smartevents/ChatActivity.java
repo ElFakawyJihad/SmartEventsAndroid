@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jihad.smartevents.Constantes.ConstantesRest;
 import com.example.jihad.smartevents.model.Message;
 import com.example.jihad.smartevents.rest.UserRest;
 
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class ChatActivity extends Activity {
     static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
@@ -51,8 +54,7 @@ public class ChatActivity extends Activity {
 
         messages = new ArrayList<>();
 
-        /* remplissage rapide */
-        /* Normalement se fait avec la Bdd, donc à récupérer */
+        /* remplissage */
         String result = UserRest.getEventMessages(1 + "");
         try {
             JSONObject jsonObject = new JSONObject(result);
@@ -64,8 +66,10 @@ public class ChatActivity extends Activity {
                 for(int e = 0; e < comments.length(); e++) {
                     JSONObject comment = comments.getJSONObject(e);
                     Message m = new Message();
-                    m.setCreatedAt(Calendar.getInstance().getTime());
-                    m.setText(comment.getString("text"));
+                    //m.setCreatedAt(new Date(comment.getString(ConstantesRest.MESSAGE_DATE)));
+                    m.setText(comment.getString(ConstantesRest.MESSAGE_CONTENT));
+                    m.setUserEmail(comment.getString(ConstantesRest.MESSAGE_USER_EMAIL));
+
 
                     messages.add(m);
                 }
@@ -76,15 +80,6 @@ public class ChatActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        /*
-        for(int i = 0; i < 2; i++) {
-            Message m = new Message();
-            m.setCreatedAt(Calendar.getInstance().getTime());
-            m.setText("remplissage rapide " + i);
-            messages.add(m);
-        }
-        */
 
         try {
             initChat();
@@ -111,6 +106,7 @@ public class ChatActivity extends Activity {
             image.setImageBitmap(bmp);
 
 
+            Toast.makeText(this, messages.get(i).getUserEmail(), Toast.LENGTH_SHORT);
             if(MainActivity.USER_EMAIL.equals(messages.get(i).getUserEmail())) {
                 messageLayout.addView(tx);
                 messageLayout.addView(image);
@@ -132,19 +128,22 @@ public class ChatActivity extends Activity {
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Date now = Calendar.getInstance().getTime();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
                 String text = etMessage.getText().toString();
                 if(text.length() <= 0) return;
 
                 Message message = new Message();
-                message.setCreatedAt(Calendar.getInstance().getTime());
+                message.setCreatedAt(now);
                 message.setText(text);
                 message.setUserEmail(MainActivity.USER_EMAIL);
 
                 messages.add(message);
 
                 //Ajouter la base de données
-
+                String result = UserRest.addEventMessage("1", message.getText(), message.getUserEmail(), timeStamp);
+                Toast.makeText(ChatActivity.this, Calendar.getInstance().getTime().toString()+"", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChatActivity.this, result, Toast.LENGTH_LONG).show();
 
                 etMessage.setText(null);
 
