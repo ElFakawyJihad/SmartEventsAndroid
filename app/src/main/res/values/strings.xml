@@ -172,4 +172,12 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+    <!-- For chat activity -->
+
+    <string name="message_hint">Say anything</string>
+    <string name="send">Send</string>
+
+    <string name="profile_me">My Profile Pic</string>
+    <string name="profile_other">Other profile pic</string>
 </resources>
