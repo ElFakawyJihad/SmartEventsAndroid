@@ -10,8 +10,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jihad.smartevents.model.Message;
+import com.example.jihad.smartevents.rest.UserRest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,12 +53,38 @@ public class ChatActivity extends Activity {
 
         /* remplissage rapide */
         /* Normalement se fait avec la Bdd, donc à récupérer */
+        String result = UserRest.getEventMessages(1 + "");
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            String message = jsonObject.getString("message");
+
+            if(message.equals("OK")) {
+                JSONArray comments = jsonObject.getJSONArray("result");
+
+                for(int e = 0; e < comments.length(); e++) {
+                    JSONObject comment = comments.getJSONObject(e);
+                    Message m = new Message();
+                    m.setCreatedAt(Calendar.getInstance().getTime());
+                    m.setText(comment.getString("text"));
+
+                    messages.add(m);
+                }
+                Toast.makeText(this, "ACCES aux commentaires de l'event", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "ECHEC => ACCES aux commentaires de l'event", Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /*
         for(int i = 0; i < 2; i++) {
             Message m = new Message();
             m.setCreatedAt(Calendar.getInstance().getTime());
             m.setText("remplissage rapide " + i);
             messages.add(m);
         }
+        */
 
         try {
             initChat();
@@ -77,7 +109,7 @@ public class ChatActivity extends Activity {
             Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             ImageView image = new ImageView(this);
             image.setImageBitmap(bmp);
-            image.setW
+
 
             if(MainActivity.USER_EMAIL.equals(messages.get(i).getUserEmail())) {
                 messageLayout.addView(tx);
@@ -102,8 +134,9 @@ public class ChatActivity extends Activity {
             public void onClick(View v) {
 
                 String text = etMessage.getText().toString();
-                Message message = new Message();
+                if(text.length() <= 0) return;
 
+                Message message = new Message();
                 message.setCreatedAt(Calendar.getInstance().getTime());
                 message.setText(text);
                 message.setUserEmail(MainActivity.USER_EMAIL);

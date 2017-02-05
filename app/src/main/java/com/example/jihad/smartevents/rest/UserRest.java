@@ -68,4 +68,25 @@ public class UserRest extends RestInterface {
         String result = post(ConstantesRest.JOIN_EVENT_URL, parameters);
         return result;
     }
+
+    public static String getEventMessages(String event_id) {
+        Map<String, String> parameters = new HashMap<String, String>();
+
+        parameters.put(ConstantesRest.EVENT_CHAT_ID, event_id);
+
+        String result = post(ConstantesRest.GET_EVENT_MESSAGES_URL, parameters);
+        return result;
+    }
+
+    public static String addEventMessage(String event_id, String text, String user_email, String date) {
+        Map<String, String> parameters = new HashMap<String, String>();
+
+        parameters.put(ConstantesRest.EVENT_CHAT_ID, event_id);
+        parameters.put(ConstantesRest.MESSAGE_CONTENT, text);
+        parameters.put(ConstantesRest.MESSAGE_USER_EMAIL, user_email);
+        parameters.put(ConstantesRest.MESSAGE_DATE, date);
+
+        String result = post(ConstantesRest.ADD_EVENT_MESSAGE_URL, parameters);
+        return result;
+    }
 }
