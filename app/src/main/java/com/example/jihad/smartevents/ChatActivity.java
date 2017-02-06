@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,8 +100,9 @@ public class ChatActivity extends Activity {
 
             TextView tx = new TextView(this);
             tx.setText(messages.get(i).getText());
+            tx.setMaxWidth(600);
 
-            URL url = new URL("http://www.gravatar.com/avatar/" + 1 + "?d=identicon");
+            URL url = new URL("http://www.gravatar.com/avatar/" + messages.get(i).getUserEmail().hashCode() + "?d=identicon");
             Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             ImageView image = new ImageView(this);
             image.setImageBitmap(bmp);
@@ -109,16 +111,20 @@ public class ChatActivity extends Activity {
             Toast.makeText(this, messages.get(i).getUserEmail(), Toast.LENGTH_SHORT);
             if(MainActivity.USER_EMAIL.equals(messages.get(i).getUserEmail())) {
                 messageLayout.addView(tx);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 messageLayout.addView(image);
+                params.gravity = Gravity.RIGHT;
+                chatLayout.addView(messageLayout, params);
             } else {
                 messageLayout.addView(image);
                 messageLayout.addView(tx);
+                chatLayout.addView(messageLayout, lParams);
             }
 
 
 
 
-            chatLayout.addView(messageLayout, lParams);
+
         }
     }
 
