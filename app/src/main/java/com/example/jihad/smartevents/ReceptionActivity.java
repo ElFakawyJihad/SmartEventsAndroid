@@ -12,6 +12,7 @@ import android.widget.Toast;
 import static com.example.jihad.smartevents.R.id.ImBoredButton;
 import static com.example.jihad.smartevents.R.id.button3;
 import static com.example.jihad.smartevents.R.id.createEventButton;
+import static com.example.jihad.smartevents.R.id.getMyEventsButton;
 
 public class ReceptionActivity extends Activity implements View.OnClickListener{
 
@@ -33,6 +34,9 @@ public class ReceptionActivity extends Activity implements View.OnClickListener{
 
         Button createEventButton = (Button) findViewById(R.id.createEventButton);
         createEventButton.setOnClickListener(this);
+
+        Button getMyEventsButton = (Button) findViewById(R.id.getMyEventsButton);
+        getMyEventsButton.setOnClickListener(this);
 
         Button logOut = (Button) findViewById(R.id.button3);
         logOut.setOnClickListener(this);
@@ -68,6 +72,12 @@ public class ReceptionActivity extends Activity implements View.OnClickListener{
             case createEventButton:
                 Intent createEventIntent = new Intent(ReceptionActivity.this, CreateEventActivity.class);
                 startActivity(createEventIntent);
+                break;
+
+            case getMyEventsButton:
+                Toast.makeText(this, "clic sur mes evenements", Toast.LENGTH_LONG).show();
+                Intent getMyEventsIntent = new Intent(ReceptionActivity.this, ChatActivity.class);
+                startActivity(getMyEventsIntent);
                 break;
 
             case button3:

@@ -43,6 +43,14 @@ public class ConstantesRest {
     public static final String JOIN_EVENT_URL           = "https://smarteventiagl.herokuapp.com/join_event";
     public static final String EVENT_ID                 = "event_id";
 
+    //Constantes Récupérer les commentaires d'un évènement-----------------------------
+    public static final String GET_EVENT_MESSAGES_URL   = "https://smarteventiagl.herokuapp.com/get_messages_event";
+    public static final String EVENT_CHAT_ID            = "eventId";
 
+    //Constantes Ajouter un commentaire à un évènement-----------------------------
+    public static final String ADD_EVENT_MESSAGE_URL    = "https://smarteventiagl.herokuapp.com/event_add_chat_message";
+    public static final String MESSAGE_CONTENT          = "text";
+    public static final String MESSAGE_USER_EMAIL       = "user_email";
+    public static final String MESSAGE_DATE             = "date";
 
 }

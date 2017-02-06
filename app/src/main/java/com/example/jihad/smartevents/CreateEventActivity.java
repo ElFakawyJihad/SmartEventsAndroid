@@ -25,8 +25,6 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.example.jihad.smartevents.R.id.eventTime;
-
 
 public class CreateEventActivity extends Activity implements View.OnClickListener {
 
